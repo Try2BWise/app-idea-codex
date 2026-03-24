@@ -384,24 +384,79 @@ button {
   width: 100%;
 }
 
-.teeth-grid {
+.tooth-summary-row {
   display: grid;
-  gap: 12px;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
 
-.tooth-button {
-  padding: 18px 14px;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.9);
-  color: var(--ink);
+.summary-pill {
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.86);
   border: 1px solid var(--line);
-  min-height: 90px;
 }
 
-.tooth-button.lost {
+.summary-pill strong {
+  display: block;
+  font-size: 1.1rem;
+}
+
+.summary-pill span {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.smile-map {
+  display: grid;
+  gap: 16px;
+}
+
+.arch-section {
+  display: grid;
+  gap: 10px;
+}
+
+.arch-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #f06f38;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.teeth-arch {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+  padding: 14px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid var(--line);
+}
+
+.tooth-dot {
+  min-height: 64px;
+  padding: 10px 6px;
+  border-radius: 18px;
+  background: rgba(233, 247, 255, 0.9);
+  color: var(--ink);
+  border: 1px solid rgba(44, 119, 244, 0.14);
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+.tooth-dot span {
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.tooth-dot.lost {
   background: linear-gradient(135deg, rgba(255, 184, 77, 0.95), rgba(255, 111, 97, 0.95));
   color: white;
+  border-color: transparent;
 }
 
 .disclaimer {
@@ -460,10 +515,58 @@ button {
 .profile-row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 12px;
   padding: 12px 14px;
   border-radius: 16px;
   background: rgba(245, 249, 252, 0.9);
+}
+
+.profile-row-copy {
+  display: grid;
+  gap: 2px;
+}
+
+.parent-stat-strip {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.parent-stat {
+  padding: 14px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(242, 249, 255, 0.9));
+  border: 1px solid var(--line);
+}
+
+.parent-stat strong {
+  display: block;
+  font-size: 1.2rem;
+}
+
+.parent-stat span {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.parent-reminders {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.reminder-card {
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(255, 249, 241, 0.92);
+  border: 1px solid rgba(240, 111, 56, 0.14);
+}
+
+.reminder-card p {
+  margin: 6px 0 0;
+  color: var(--muted);
 }
 
 .save-message {
@@ -536,7 +639,13 @@ button {
   }
 
   .step-list,
-  .stat-row {
+  .stat-row,
+  .tooth-summary-row,
+  .parent-stat-strip {
     grid-template-columns: 1fr;
+  }
+
+  .teeth-arch {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }

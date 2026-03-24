@@ -44,6 +44,9 @@ const initialState: LocalState = {
   profiles: starterProfiles,
 };
 
+const topTeeth = ['Top right back', 'Top right middle', 'Top front right', 'Top front left', 'Top left middle', 'Top left back'];
+const bottomTeeth = ['Bottom left back', 'Bottom left middle', 'Bottom front left', 'Bottom front right', 'Bottom right middle', 'Bottom right back'];
+
 function profileGradient(type: ProfileType): string {
   return type === 'teen'
     ? 'linear-gradient(135deg, #5ec2ff 0%, #2c77f4 100%)'
@@ -179,6 +182,17 @@ export function App() {
     Math.floor((elapsed / 120) * copy.brushing.encouragement.length),
   );
   const encouragement = copy.brushing.encouragement[encouragementIndex];
+
+  function shortToothLabel(label: string) {
+    return label
+      .replace('Top ', 'T ')
+      .replace('Bottom ', 'B ')
+      .replace('right', 'R')
+      .replace('left', 'L')
+      .replace('middle', 'Mid')
+      .replace('front', 'Front')
+      .replace('back', 'Back');
+  }
 
   return (
     <div className="app-shell">
@@ -317,29 +331,62 @@ export function App() {
 
           {tab === 'teeth' && (
             <section className="panel wide-panel">
-            <div className="section-heading">
+              <div className="section-heading">
               <div>
                 <p className="eyebrow">{copy.tabs.teeth}</p>
                 <h2>{copy.teeth.title}</h2>
               </div>
               <p>{copy.teeth.body}</p>
-            </div>
-            <div className="teeth-grid">
-              {copy.teeth.labels.map((label) => {
-                const active = activeProfile.teethLost.includes(label);
-                return (
-                  <button
-                    key={label}
-                    className={`tooth-button ${active ? 'lost' : ''}`}
-                    onClick={() => toggleTooth(label)}
-                    title={label}
-                  >
-                    {label}
-                  </button>
-                );
-              })}
-            </div>
-            <p className="disclaimer">{copy.teeth.hint}</p>
+              </div>
+              <div className="tooth-summary-row">
+                <div className="summary-pill">
+                  <strong>{activeProfile.teethLost.length}</strong>
+                  <span>milestones logged</span>
+                </div>
+                <div className="summary-pill">
+                  <strong>{activeProfile.teethLost.length === 0 ? 'None yet' : 'In progress'}</strong>
+                  <span>smile updates</span>
+                </div>
+              </div>
+              <div className="smile-map">
+                <div className="arch-section">
+                  <span className="arch-label">Top smile</span>
+                  <div className="teeth-arch top-arch">
+                    {topTeeth.map((label) => {
+                      const active = activeProfile.teethLost.includes(label);
+                      return (
+                        <button
+                          key={label}
+                          className={`tooth-dot ${active ? 'lost' : ''}`}
+                          onClick={() => toggleTooth(label)}
+                          title={label}
+                        >
+                          <span>{shortToothLabel(label)}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+                <div className="arch-section">
+                  <span className="arch-label">Bottom smile</span>
+                  <div className="teeth-arch bottom-arch">
+                    {bottomTeeth.map((label) => {
+                      const active = activeProfile.teethLost.includes(label);
+                      return (
+                        <button
+                          key={label}
+                          className={`tooth-dot ${active ? 'lost' : ''}`}
+                          onClick={() => toggleTooth(label)}
+                          title={label}
+                        >
+                          <span>{shortToothLabel(label)}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+              <p className="disclaimer">{copy.teeth.hint}</p>
             </section>
           )}
 
@@ -441,12 +488,25 @@ export function App() {
             </div>
             <div className="parent-grid">
               <div className="panel inset-panel">
+                <div className="parent-stat-strip">
+                  <div className="parent-stat">
+                    <strong>{state.profiles.length}</strong>
+                    <span>profiles</span>
+                  </div>
+                  <div className="parent-stat">
+                    <strong>{state.profiles.filter((profile) => profile.lastBrushedOn === today).length}</strong>
+                    <span>brushed today</span>
+                  </div>
+                </div>
                 <strong>{copy.parent.profilesTitle}</strong>
                 <div className="profile-list">
                   {state.profiles.map((profile) => (
                     <div key={profile.id} className="profile-row">
-                      <span>{profile.name}</span>
-                      <small>{profile.type === 'teen' ? 'Teen profile' : 'Child profile'}</small>
+                      <div className="profile-row-copy">
+                        <span>{profile.name}</span>
+                        <small>{profile.type === 'teen' ? 'Teen profile' : 'Child profile'}</small>
+                      </div>
+                      <strong>{profile.streak}d</strong>
                     </div>
                   ))}
                 </div>
@@ -455,6 +515,16 @@ export function App() {
                 </button>
               </div>
               <div className="panel inset-panel">
+                <div className="parent-reminders">
+                  <div className="reminder-card">
+                    <strong>Quick reminder</strong>
+                    <p>Kids often still need brushing help into early elementary years.</p>
+                  </div>
+                  <div className="reminder-card">
+                    <strong>First visit</strong>
+                    <p>Plan a dental visit by the first tooth or first birthday.</p>
+                  </div>
+                </div>
                 <label className="stacked-label">
                   <span>{copy.parent.notesLabel}</span>
                   <textarea
