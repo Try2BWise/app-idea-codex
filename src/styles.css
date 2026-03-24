@@ -129,6 +129,11 @@ button {
   gap: 2px;
 }
 
+.app-bar-subtitle {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
 .hero-copy-block {
   display: grid;
   gap: 8px;
@@ -324,6 +329,66 @@ button {
   border: 1px solid var(--line);
 }
 
+.character-stage-top {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.crew-medallion,
+.crew-badge {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  color: white;
+  background: linear-gradient(135deg, #2c77f4 0%, #ff6f61 100%);
+  box-shadow: 0 10px 24px rgba(44, 119, 244, 0.18);
+}
+
+.crew-badge.large {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+}
+
+.crew-roster {
+  gap: 10px;
+}
+
+.crew-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.crew-card {
+  display: grid;
+  gap: 6px;
+  padding: 12px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.84);
+  text-align: left;
+  color: var(--ink);
+}
+
+.crew-card span {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.tile-guide {
+  margin: 0 0 4px;
+  font-size: 0.78rem;
+  color: #2c77f4;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
 .stat-card {
   padding: 12px;
   border-radius: 16px;
@@ -393,6 +458,40 @@ button {
   opacity: 0.72;
 }
 
+.character-panel {
+  position: relative;
+}
+
+.crew-captain {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(237, 245, 255, 0.96)),
+    linear-gradient(135deg, rgba(44, 119, 244, 0.08), rgba(255, 111, 97, 0.08));
+}
+
+.crew-marshal {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 248, 239, 0.96)),
+    linear-gradient(135deg, rgba(176, 109, 55, 0.08), rgba(255, 184, 77, 0.08));
+}
+
+.crew-timer {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(235, 252, 249, 0.96)),
+    linear-gradient(135deg, rgba(74, 208, 180, 0.08), rgba(94, 194, 255, 0.08));
+}
+
+.crew-paste {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 252, 233, 0.96)),
+    linear-gradient(135deg, rgba(255, 211, 51, 0.08), rgba(255, 184, 77, 0.08));
+}
+
+.crew-parent {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(244, 247, 252, 0.96)),
+    linear-gradient(135deg, rgba(23, 50, 77, 0.06), rgba(94, 194, 255, 0.06));
+}
+
 .task-card span,
 .activity-card span {
   color: var(--muted);
@@ -417,6 +516,27 @@ button {
 .brushing-progress-panel {
   display: grid;
   gap: 8px;
+}
+
+.guide-callout {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+  align-items: start;
+}
+
+.speech-bubble {
+  display: grid;
+  gap: 4px;
+  padding: 12px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid var(--line);
+}
+
+.speech-bubble p {
+  margin: 0;
+  color: var(--muted);
 }
 
 .progress-ring {
@@ -547,6 +667,28 @@ button {
   display: flex;
   gap: 6px;
   flex-wrap: wrap;
+}
+
+.reward-strip {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.reward-chip {
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.reward-chip.earned {
+  background: linear-gradient(135deg, rgba(255, 211, 51, 0.95), rgba(255, 184, 77, 0.95));
+  border-color: transparent;
+  color: #17324d;
 }
 
 .action-tile {
@@ -896,6 +1038,10 @@ button {
     align-items: stretch;
   }
 
+  .crew-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
   .hero h1 {
     font-size: 1.5rem;
   }
@@ -936,6 +1082,12 @@ button {
     font-size: 0.74rem;
   }
 
+  .character-stage-top,
+  .guide-callout {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
+
   .step-list,
   .stat-row,
   .tooth-summary-row,
@@ -956,5 +1108,9 @@ button {
   .choice-card,
   .profile-preview {
     padding: 9px 10px;
+  }
+
+  .crew-grid {
+    grid-template-columns: 1fr;
   }
 }

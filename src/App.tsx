@@ -50,6 +50,51 @@ const initialState: LocalState = {
 const topTeeth = ['Top right back', 'Top right middle', 'Top front right', 'Top front left', 'Top left middle', 'Top left back'];
 const bottomTeeth = ['Bottom left back', 'Bottom left middle', 'Bottom front left', 'Bottom front right', 'Bottom right middle', 'Bottom right back'];
 
+const crew = {
+  home: {
+    name: 'SmileSteps Crew',
+    title: 'Your smile squad',
+    vibe: 'Captain Brush leads the team, Timer T-Pop keeps the beat, Marshal Floss tracks the trail, and the Paste Pals cheer every win.',
+    accent: 'crew-captain',
+    badge: 'SC',
+  },
+  brushing: {
+    name: 'Captain Brush',
+    title: 'Hero coach',
+    vibe: 'Fast, bright, and encouraging. Great for getting a brushing mission started.',
+    accent: 'crew-captain',
+    badge: 'CB',
+  },
+  teeth: {
+    name: 'Marshal Floss',
+    title: 'Trail tracker',
+    vibe: 'Keeps track of milestones and helps families notice smile changes over time.',
+    accent: 'crew-marshal',
+    badge: 'MF',
+  },
+  ortho: {
+    name: 'Timer T-Pop',
+    title: 'Rhythm guide',
+    vibe: 'Handles timing, progress, and “stay on track” energy for aligner routines.',
+    accent: 'crew-timer',
+    badge: 'TP',
+  },
+  learn: {
+    name: '8-Bit Paste Pals',
+    title: 'Reaction team',
+    vibe: 'Tiny cheer squad with collectible moods and simple explainers.',
+    accent: 'crew-paste',
+    badge: '8P',
+  },
+  parent: {
+    name: 'Mission Board',
+    title: 'Family control',
+    vibe: 'A calmer planning layer for parents and caregivers.',
+    accent: 'crew-parent',
+    badge: 'MB',
+  },
+} as const;
+
 function profileGradient(type: ProfileType): string {
   return type === 'teen'
     ? 'linear-gradient(135deg, #5ec2ff 0%, #2c77f4 100%)'
@@ -256,6 +301,14 @@ export function App() {
   const learnSections = copy.learn.sections.filter((section) => section.ageGroups.includes(activeProfile.ageGroup));
   const recentActivity = activeProfile.activityLog.slice(0, 4);
   const orthoActivity = activeProfile.activityLog.filter((entry) => entry.kind === 'aligner' || entry.kind === 'tray-change').slice(0, 4);
+  const currentGuide = crew[tab];
+  const crewCards = [
+    { id: 'brushing', ...crew.brushing, action: () => setTab('brushing') },
+    { id: 'teeth', ...crew.teeth, action: () => setTab('teeth') },
+    { id: 'ortho', ...crew.ortho, action: () => setTab('ortho') },
+    { id: 'learn', ...crew.learn, action: () => setTab('learn') },
+  ] as const;
+  const brushingRewards = ['Champion', 'Superstar', 'Sparkly finish'];
   const dailyTasks = [
     {
       id: 'brush',
@@ -310,6 +363,7 @@ export function App() {
           <div className="app-bar-copy">
             <p className="eyebrow">{copy.appName}</p>
             <strong>{activeProfile.name}</strong>
+            <small className="app-bar-subtitle">{currentGuide.name} on deck</small>
           </div>
           <div className="hero-controls">
             <label className="stacked-label">
@@ -345,9 +399,14 @@ export function App() {
         <main className="content-grid">
           {tab === 'home' && (
             <>
-              <section className="panel spotlight">
-                <p className="eyebrow">{copy.tagline}</p>
-                <h2>{copy.home.welcome} {activeProfile.name}</h2>
+              <section className={`panel spotlight character-stage ${crew.home.accent}`}>
+                <div className="character-stage-top">
+                  <div className="crew-medallion">SC</div>
+                  <div>
+                    <p className="eyebrow">{copy.tagline}</p>
+                    <h2>{copy.home.welcome} {activeProfile.name}</h2>
+                  </div>
+                </div>
                 <p>{copy.home.dailyPlan}</p>
                 <button className="link-button" onClick={() => setShowIntroDetails((current) => !current)}>
                   {showIntroDetails ? 'Hide details' : 'About this demo'}
@@ -379,6 +438,24 @@ export function App() {
                   <button className="soft-button" onClick={() => setTab('learn')}>
                     {copy.tabs.learn}
                   </button>
+                </div>
+              </section>
+
+              <section className="panel crew-roster">
+                <div className="section-heading compact-heading">
+                  <div>
+                    <p className="eyebrow">{crew.home.title}</p>
+                    <h2>Meet the guides</h2>
+                  </div>
+                </div>
+                <div className="crew-grid">
+                  {crewCards.map((member) => (
+                    <button key={member.id} className={`crew-card ${member.accent}`} onClick={member.action}>
+                      <div className="crew-badge">{member.badge}</div>
+                      <strong>{member.name}</strong>
+                      <span>{member.title}</span>
+                    </button>
+                  ))}
                 </div>
               </section>
 
@@ -418,10 +495,10 @@ export function App() {
                 </div>
                 <div className="step-list">
                   {copy.home.nextSteps.map((step) => (
-                    <button key={step} className="step-chip" onClick={() => jumpFromStep(step)}>
-                      {step}
-                    </button>
-                  ))}
+                  <button key={step} className="step-chip" onClick={() => jumpFromStep(step)}>
+                    {step}
+                  </button>
+                ))}
                 </div>
               </section>
 
@@ -448,18 +525,22 @@ export function App() {
 
               <section className="card-grid">
                 <button className="panel tile action-tile" onClick={() => setTab('brushing')}>
+                  <p className="tile-guide">{crew.brushing.name}</p>
                   <h3>{copy.tabs.brushing}</h3>
                   <p>{copy.home.timerCard}</p>
                 </button>
                 <button className="panel tile action-tile" onClick={() => setTab('teeth')}>
+                  <p className="tile-guide">{crew.teeth.name}</p>
                   <h3>{copy.tabs.teeth}</h3>
                   <p>{copy.home.toothCard}</p>
                 </button>
                 <button className="panel tile action-tile" onClick={() => setTab('ortho')}>
+                  <p className="tile-guide">{crew.ortho.name}</p>
                   <h3>{copy.tabs.ortho}</h3>
                   <p>{copy.home.orthoCard}</p>
                 </button>
                 <button className="panel tile action-tile" onClick={() => setTab('learn')}>
+                  <p className="tile-guide">{crew.learn.name}</p>
                   <h3>{copy.tabs.learn}</h3>
                   <p>{copy.home.learnCard}</p>
                 </button>
@@ -468,13 +549,21 @@ export function App() {
           )}
 
           {tab === 'brushing' && (
-            <section className="panel wide-panel">
+            <section className={`panel wide-panel character-panel ${crew.brushing.accent}`}>
               <div className="section-heading">
                 <div>
-                  <p className="eyebrow">{copy.tabs.brushing}</p>
+                  <p className="eyebrow">{crew.brushing.name}</p>
                   <h2>{copy.brushing.title}</h2>
                 </div>
                 <p>{copy.brushing.body}</p>
+              </div>
+
+              <div className="guide-callout">
+                <div className="crew-badge large">{crew.brushing.badge}</div>
+                <div className="speech-bubble">
+                  <strong>{crew.brushing.title}</strong>
+                  <p>{secondsLeft === 0 ? copy.brushing.helperFinished : `${copy.brushing.helperPrefix} ${copy.brushing.quadrants[activeQuadrantIndex].toLowerCase()} ${copy.brushing.helperSuffix}`}</p>
+                </div>
               </div>
 
               <div className="brushing-progress-panel">
@@ -499,11 +588,13 @@ export function App() {
               <div className="timer-layout">
                 <div className="timer-controls">
                   <p className="coach-line">{secondsLeft === 0 ? copy.brushing.finished : encouragement}</p>
-                  <p className="coach-helper">
-                    {secondsLeft === 0
-                      ? copy.brushing.helperFinished
-                      : `${copy.brushing.helperPrefix} ${copy.brushing.quadrants[activeQuadrantIndex].toLowerCase()} ${copy.brushing.helperSuffix}`}
-                  </p>
+                  <div className="reward-strip">
+                    {brushingRewards.map((reward, index) => (
+                      <span key={reward} className={`reward-chip ${elapsed / 30 > index ? 'earned' : ''}`}>
+                        {reward}
+                      </span>
+                    ))}
+                  </div>
                   <div className="button-row">
                     <button
                       className="primary-button"
@@ -528,10 +619,10 @@ export function App() {
           )}
 
           {tab === 'teeth' && (
-            <section className="panel wide-panel">
+            <section className={`panel wide-panel character-panel ${crew.teeth.accent}`}>
               <div className="section-heading">
                 <div>
-                  <p className="eyebrow">{copy.tabs.teeth}</p>
+                  <p className="eyebrow">{crew.teeth.name}</p>
                   <h2>{copy.teeth.title}</h2>
                 </div>
                 <p>{copy.teeth.body}</p>
@@ -592,10 +683,10 @@ export function App() {
           )}
 
           {tab === 'ortho' && (
-            <section className="panel wide-panel">
+            <section className={`panel wide-panel character-panel ${crew.ortho.accent}`}>
               <div className="section-heading">
                 <div>
-                  <p className="eyebrow">{copy.tabs.ortho}</p>
+                  <p className="eyebrow">{crew.ortho.name}</p>
                   <h2>{copy.ortho.title}</h2>
                 </div>
                 <p>{copy.ortho.body}</p>
@@ -712,10 +803,10 @@ export function App() {
           )}
 
           {tab === 'learn' && (
-            <section className="panel wide-panel">
+            <section className={`panel wide-panel character-panel ${crew.learn.accent}`}>
               <div className="section-heading">
                 <div>
-                  <p className="eyebrow">{copy.tabs.learn}</p>
+                  <p className="eyebrow">{crew.learn.name}</p>
                   <h2>{copy.learn.title}</h2>
                 </div>
                 <p>{copy.learn.body}</p>
@@ -754,10 +845,10 @@ export function App() {
           )}
 
           {tab === 'parent' && (
-            <section className="panel wide-panel">
+            <section className={`panel wide-panel character-panel ${crew.parent.accent}`}>
               <div className="section-heading">
                 <div>
-                  <p className="eyebrow">{copy.tabs.parent}</p>
+                  <p className="eyebrow">{crew.parent.name}</p>
                   <h2>{copy.parent.title}</h2>
                 </div>
                 <p>{copy.parent.body}</p>
