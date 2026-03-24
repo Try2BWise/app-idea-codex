@@ -85,11 +85,14 @@ export function App() {
   const [isRunning, setIsRunning] = useState(false);
   const [showProfileForm, setShowProfileForm] = useState(false);
   const [showWelcome, setShowWelcome] = useState(() => !(loadState()?.hasSeenWelcome ?? false));
+  const [showIntroDetails, setShowIntroDetails] = useState(false);
   const [profileName, setProfileName] = useState('');
   const [profileType, setProfileType] = useState<ProfileType>('child');
   const [ageGroup, setAgeGroup] = useState<ChildAgeGroup>('big-kid');
   const [profileStep, setProfileStep] = useState(0);
   const [saveMessage, setSaveMessage] = useState('');
+  const [showCompletedTasks, setShowCompletedTasks] = useState(false);
+  const [expandedLearnCard, setExpandedLearnCard] = useState<string | null>(null);
 
   useEffect(() => {
     saveState(state);
@@ -258,6 +261,7 @@ export function App() {
       id: 'brush',
       title: copy.brushing.start,
       body: activeProfile.lastBrushedOn === today ? 'Already completed today.' : 'Knock out today’s 2-minute brushing routine.',
+      completed: activeProfile.lastBrushedOn === today,
       action: () => setTab('brushing'),
     },
     {
@@ -267,15 +271,18 @@ export function App() {
         activeProfile.type === 'teen'
           ? `${alignerProgress}% of today’s aligner goal tracked.`
           : `${activeProfile.teethLost.length} tooth milestones logged so far.`,
+      completed: activeProfile.type === 'teen' ? alignerProgress >= 100 : activeProfile.teethLost.length > 0,
       action: () => setTab(activeProfile.type === 'teen' ? 'ortho' : 'teeth'),
     },
     {
       id: 'learn',
       title: copy.tabs.learn,
       body: `Explore ${learnSections[0]?.title?.toLowerCase() ?? 'today’s'} learning cards.`,
+      completed: recentActivity.some((entry) => entry.kind === 'brush' || entry.kind === 'tooth' || entry.kind === 'aligner'),
       action: () => setTab('learn'),
     },
   ];
+  const visibleTasks = showCompletedTasks ? dailyTasks : dailyTasks.filter((task) => !task.completed);
 
   function shortToothLabel(label: string) {
     return label
@@ -299,11 +306,10 @@ export function App() {
   return (
     <div className="app-shell">
       <div className="phone-frame">
-        <header className="hero">
-          <div className="hero-copy-block">
+        <header className="app-bar">
+          <div className="app-bar-copy">
             <p className="eyebrow">{copy.appName}</p>
-            <h1>{copy.heroTitle}</h1>
-            <p className="hero-copy">{copy.heroBody}</p>
+            <strong>{activeProfile.name}</strong>
           </div>
           <div className="hero-controls">
             <label className="stacked-label">
@@ -341,10 +347,17 @@ export function App() {
             <>
               <section className="panel spotlight">
                 <p className="eyebrow">{copy.tagline}</p>
-                <h2>
-                  {copy.home.welcome} {activeProfile.name}
-                </h2>
+                <h2>{copy.home.welcome} {activeProfile.name}</h2>
                 <p>{copy.home.dailyPlan}</p>
+                <button className="link-button" onClick={() => setShowIntroDetails((current) => !current)}>
+                  {showIntroDetails ? 'Hide details' : 'About this demo'}
+                </button>
+                {showIntroDetails ? (
+                  <div className="intro-details">
+                    <strong>{copy.heroTitle}</strong>
+                    <p>{copy.heroBody}</p>
+                  </div>
+                ) : null}
                 <div className="stat-row">
                   <div className="stat-card">
                     <strong>{activeProfile.streak}</strong>
@@ -375,14 +388,23 @@ export function App() {
                     <p className="eyebrow">{copy.home.tasksTitle}</p>
                     <h2>{activeProfile.name}&apos;s plan for today</h2>
                   </div>
+                  <button className="link-button" onClick={() => setShowCompletedTasks((current) => !current)}>
+                    {showCompletedTasks ? 'Hide done' : 'Show all'}
+                  </button>
                 </div>
                 <div className="task-list">
-                  {dailyTasks.map((task) => (
-                    <button key={task.id} className="task-card" onClick={task.action}>
+                  {visibleTasks.map((task) => (
+                    <button key={task.id} className={`task-card ${task.completed ? 'task-complete' : ''}`} onClick={task.action}>
                       <strong>{task.title}</strong>
                       <span>{task.body}</span>
                     </button>
                   ))}
+                  {visibleTasks.length === 0 ? (
+                    <div className="activity-card">
+                      <strong>All caught up</strong>
+                      <span>Today’s core tasks are done. You can still explore and learn.</span>
+                    </div>
+                  ) : null}
                 </div>
               </section>
 
@@ -710,12 +732,20 @@ export function App() {
                   </div>
                   <div className="learn-grid">
                     {section.cards.map((card) => (
-                      <article key={`${section.id}-${card.title}`} className="learn-card">
+                      <button
+                        key={`${section.id}-${card.title}`}
+                        className={`learn-card learn-card-button ${expandedLearnCard === `${section.id}-${card.title}` ? 'expanded' : ''}`}
+                        onClick={() =>
+                          setExpandedLearnCard((current) =>
+                            current === `${section.id}-${card.title}` ? null : `${section.id}-${card.title}`,
+                          )
+                        }
+                      >
                         <img className="learn-art" src={card.art} alt="" />
                         <span>{card.tag}</span>
                         <h3>{card.title}</h3>
-                        <p>{card.body}</p>
-                      </article>
+                        <p className={expandedLearnCard === `${section.id}-${card.title}` ? '' : 'learn-snippet'}>{card.body}</p>
+                      </button>
                     ))}
                   </div>
                 </section>

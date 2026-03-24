@@ -69,6 +69,7 @@ button {
 }
 
 .hero,
+.app-bar,
 .panel,
 .profile-chip,
 .tab-bar,
@@ -77,7 +78,8 @@ button {
   backdrop-filter: blur(16px);
 }
 
-.hero {
+.hero,
+.app-bar {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -113,6 +115,18 @@ button {
   flex-direction: row;
   gap: 12px;
   align-items: end;
+}
+
+.app-bar {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: end;
+  gap: 10px;
+}
+
+.app-bar-copy {
+  display: grid;
+  gap: 2px;
 }
 
 .hero-copy-block {
@@ -293,6 +307,23 @@ button {
   margin-top: 8px;
 }
 
+.link-button {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  color: #2c77f4;
+  font-weight: 700;
+}
+
+.intro-details {
+  display: grid;
+  gap: 6px;
+  padding: 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid var(--line);
+}
+
 .stat-card {
   padding: 12px;
   border-radius: 16px;
@@ -356,6 +387,10 @@ button {
   background: rgba(255, 255, 255, 0.86);
   text-align: left;
   color: var(--ink);
+}
+
+.task-complete {
+  opacity: 0.72;
 }
 
 .task-card span,
@@ -624,6 +659,22 @@ button {
   gap: 10px;
 }
 
+.learn-card-button {
+  text-align: left;
+  width: 100%;
+}
+
+.learn-card.expanded {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(241, 249, 255, 0.92));
+}
+
+.learn-snippet {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .learn-section {
   display: grid;
   gap: 8px;
@@ -838,6 +889,10 @@ button {
 
   .hero-controls {
     flex-direction: column;
+    align-items: stretch;
+  }
+
+  .app-bar {
     align-items: stretch;
   }
 
