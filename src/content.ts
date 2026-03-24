@@ -1,5 +1,7 @@
 import type { Copy, Language } from './types';
 
+const artPath = (fileName: string) => `${import.meta.env.BASE_URL}art/${fileName}`;
+
 export const toothLabels = [
   'Top right back',
   'Top right middle',
@@ -125,25 +127,25 @@ export const copyByLanguage: Record<Language, Copy> = {
               title: 'Mirror',
               tag: 'Dental tool',
               body: 'A tiny mirror helps the dentist peek around corners and shine light where it is hard to see.',
-              art: '/art/mirror.svg'
+              art: artPath('mirror.svg')
             },
             {
               title: 'Suction straw',
               tag: 'Dental tool',
               body: 'The suction straw is like a little vacuum for water, so it is easier to stay comfortable during a visit.',
-              art: '/art/suction.svg'
+              art: artPath('suction.svg')
             },
             {
               title: 'Toothpaste size',
               tag: 'Healthy habit',
               body: 'Use a grain-of-rice smear before age 3 and a pea-sized amount from ages 3 to 6.',
-              art: '/art/toothpaste.svg'
+              art: artPath('toothpaste.svg')
             },
             {
               title: 'First dental visit',
               tag: 'Parent tip',
               body: 'The first dental visit should happen by the first tooth or first birthday, whichever comes first.',
-              art: '/art/visit.svg'
+              art: artPath('visit.svg')
             },
           ],
         },
@@ -157,19 +159,19 @@ export const copyByLanguage: Record<Language, Copy> = {
               title: 'Explorer',
               tag: 'Dental tool',
               body: 'The explorer is a checking tool. It helps the dentist feel the tooth surface and look for spots that need attention.',
-              art: '/art/explorer.svg'
+              art: artPath('explorer.svg')
             },
             {
               title: 'Scaler',
               tag: 'Dental tool',
               body: 'A scaler helps clean away stuck-on buildup that a toothbrush cannot always reach.',
-              art: '/art/scaler.svg'
+              art: artPath('scaler.svg')
             },
             {
               title: 'Sealants',
               tag: 'Smile fact',
               body: 'Sealants are like a raincoat for the bumpy tops of back teeth. They help protect molars from cavities.',
-              art: '/art/sealant.svg'
+              art: artPath('sealant.svg')
             },
           ],
         },
@@ -183,19 +185,19 @@ export const copyByLanguage: Record<Language, Copy> = {
               title: 'Braces wax',
               tag: 'Ortho help',
               body: 'Orthodontic wax can cover a spot that rubs until your orthodontic team can check it.',
-              art: '/art/wax.svg'
+              art: artPath('wax.svg')
             },
             {
               title: 'Aligner care',
               tag: 'Ortho habit',
               body: 'Use your case, keep aligners clean, and stick to your orthodontist’s wear schedule.',
-              art: '/art/wax.svg'
+              art: artPath('wax.svg')
             },
             {
               title: 'Tray change prep',
               tag: 'Ortho routine',
               body: 'A planned tray-change day can make it easier to stay on track and remember what comes next.',
-              art: '/art/visit.svg'
+              art: artPath('visit.svg')
             },
           ],
         },
@@ -209,7 +211,7 @@ export const copyByLanguage: Record<Language, Copy> = {
               title: 'Healthy brushing',
               tag: 'Habit',
               body: 'Brush twice a day for 2 minutes, using gentle circles across every side of each tooth.',
-              art: '/art/toothpaste.svg'
+              art: artPath('toothpaste.svg')
             },
           ],
         },
@@ -349,25 +351,25 @@ export const copyByLanguage: Record<Language, Copy> = {
               title: 'Espejo',
               tag: 'Herramienta dental',
               body: 'Un pequeno espejo ayuda a ver rincones y a llevar luz a lugares dificiles de mirar.',
-              art: '/art/mirror.svg'
+              art: artPath('mirror.svg')
             },
             {
               title: 'Succion',
               tag: 'Herramienta dental',
               body: 'La succion funciona como una pequena aspiradora de agua para que la boca se sienta mas comoda.',
-              art: '/art/suction.svg'
+              art: artPath('suction.svg')
             },
             {
               title: 'Cantidad de pasta',
               tag: 'Habito',
               body: 'Usa una mancha del tamano de un grano de arroz antes de los 3 anos y una cantidad del tamano de un guisante entre 3 y 6 anos.',
-              art: '/art/toothpaste.svg'
+              art: artPath('toothpaste.svg')
             },
             {
               title: 'Primera visita dental',
               tag: 'Consejo para padres',
               body: 'La primera visita dental debe ser cuando salga el primer diente o antes del primer cumpleanos.',
-              art: '/art/visit.svg'
+              art: artPath('visit.svg')
             },
           ],
         },
@@ -381,19 +383,19 @@ export const copyByLanguage: Record<Language, Copy> = {
               title: 'Explorador',
               tag: 'Herramienta dental',
               body: 'El explorador ayuda a revisar la superficie del diente y encontrar zonas que necesitan atencion.',
-              art: '/art/explorer.svg'
+              art: artPath('explorer.svg')
             },
             {
               title: 'Escariador',
               tag: 'Herramienta dental',
               body: 'El escariador ayuda a quitar acumulacion pegada que un cepillo no siempre puede alcanzar.',
-              art: '/art/scaler.svg'
+              art: artPath('scaler.svg')
             },
             {
               title: 'Selladores',
               tag: 'Dato',
               body: 'Los selladores son como un impermeable para la parte con surcos de las muelas. Ayudan a proteger de caries.',
-              art: '/art/sealant.svg'
+              art: artPath('sealant.svg')
             },
           ],
         },
@@ -407,19 +409,19 @@ export const copyByLanguage: Record<Language, Copy> = {
               title: 'Cera',
               tag: 'Ayuda orto',
               body: 'La cera de ortodoncia puede cubrir una zona que roza hasta que el equipo la revise.',
-              art: '/art/wax.svg'
+              art: artPath('wax.svg')
             },
             {
               title: 'Cuidado del alineador',
               tag: 'Habito orto',
               body: 'Usa tu estuche, limpia los alineadores y sigue el horario indicado por tu ortodoncista.',
-              art: '/art/wax.svg'
+              art: artPath('wax.svg')
             },
             {
               title: 'Preparar el cambio',
               tag: 'Rutina orto',
               body: 'Tener un dia de cambio planeado ayuda a seguir el ritmo y recordar el siguiente paso.',
-              art: '/art/visit.svg'
+              art: artPath('visit.svg')
             },
           ],
         },
@@ -433,7 +435,7 @@ export const copyByLanguage: Record<Language, Copy> = {
               title: 'Cepillado saludable',
               tag: 'Habito',
               body: 'Cepilla dos veces al dia por 2 minutos con circulos suaves en cada lado del diente.',
-              art: '/art/toothpaste.svg'
+              art: artPath('toothpaste.svg')
             },
           ],
         },
