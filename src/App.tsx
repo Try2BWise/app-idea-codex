@@ -95,6 +95,12 @@ const crew = {
   },
 } as const;
 
+const captainBrushAssets = {
+  hero: '/characters/captain-brush-hero.png',
+  coach: '/characters/captain-brush-coach.png',
+  win: '/characters/captain-brush-win.png',
+} as const;
+
 function profileGradient(type: ProfileType): string {
   return type === 'teen'
     ? 'linear-gradient(135deg, #5ec2ff 0%, #2c77f4 100%)'
@@ -400,12 +406,15 @@ export function App() {
           {tab === 'home' && (
             <>
               <section className={`panel spotlight character-stage ${crew.home.accent}`}>
-                <div className="character-stage-top">
-                  <div className="crew-medallion">SC</div>
-                  <div>
-                    <p className="eyebrow">{copy.tagline}</p>
-                    <h2>{copy.home.welcome} {activeProfile.name}</h2>
+                <div className="character-stage-layout">
+                  <div className="character-stage-top">
+                    <div className="crew-medallion">SC</div>
+                    <div>
+                      <p className="eyebrow">{copy.tagline}</p>
+                      <h2>{copy.home.welcome} {activeProfile.name}</h2>
+                    </div>
                   </div>
+                  <img className="feature-character art-captain" src={captainBrushAssets.hero} alt="Captain Brush" />
                 </div>
                 <p>{copy.home.dailyPlan}</p>
                 <button className="link-button" onClick={() => setShowIntroDetails((current) => !current)}>
@@ -451,7 +460,11 @@ export function App() {
                 <div className="crew-grid">
                   {crewCards.map((member) => (
                     <button key={member.id} className={`crew-card ${member.accent}`} onClick={member.action}>
-                      <div className="crew-badge">{member.badge}</div>
+                      {member.id === 'brushing' ? (
+                        <img className="crew-card-art" src={captainBrushAssets.hero} alt="Captain Brush" />
+                      ) : (
+                        <div className="crew-badge">{member.badge}</div>
+                      )}
                       <strong>{member.name}</strong>
                       <span>{member.title}</span>
                     </button>
@@ -559,7 +572,11 @@ export function App() {
               </div>
 
               <div className="guide-callout">
-                <div className="crew-badge large">{crew.brushing.badge}</div>
+                <img
+                  className="guide-art"
+                  src={secondsLeft === 0 ? captainBrushAssets.win : captainBrushAssets.coach}
+                  alt="Captain Brush"
+                />
                 <div className="speech-bubble">
                   <strong>{crew.brushing.title}</strong>
                   <p>{secondsLeft === 0 ? copy.brushing.helperFinished : `${copy.brushing.helperPrefix} ${copy.brushing.quadrants[activeQuadrantIndex].toLowerCase()} ${copy.brushing.helperSuffix}`}</p>
