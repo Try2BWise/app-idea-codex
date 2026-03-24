@@ -95,10 +95,12 @@ const crew = {
   },
 } as const;
 
+const assetBase = import.meta.env.BASE_URL;
+
 const captainBrushAssets = {
-  hero: '/characters/captain-brush-hero.png',
-  coach: '/characters/captain-brush-coach.png',
-  win: '/characters/captain-brush-win.png',
+  hero: `${assetBase}characters/captain-brush-hero.png`,
+  coach: `${assetBase}characters/captain-brush-coach.png`,
+  win: `${assetBase}characters/captain-brush-win.png`,
 } as const;
 
 function profileGradient(type: ProfileType): string {
