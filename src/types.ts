@@ -25,6 +25,7 @@ export interface LocalState {
   parentName: string;
   language: Language;
   activeProfileId: string;
+  hasSeenWelcome: boolean;
   profiles: Profile[];
 }
 
@@ -44,6 +45,10 @@ export interface Copy {
     startHereTitle: string;
     startHereBody: string;
     nextSteps: string[];
+    onboardingTitle: string;
+    onboardingBody: string;
+    onboardingPoints: string[];
+    onboardingButton: string;
     timerCard: string;
     toothCard: string;
     orthoCard: string;
@@ -54,8 +59,14 @@ export interface Copy {
     body: string;
     start: string;
     reset: string;
+    pause: string;
+    resume: string;
     finished: string;
     encouragement: string[];
+    quadrants: string[];
+    helperFinished: string;
+    helperPrefix: string;
+    helperSuffix: string;
   };
   teeth: {
     title: string;

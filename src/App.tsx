@@ -41,6 +41,7 @@ const initialState: LocalState = {
   parentName: 'Parent',
   language: 'en',
   activeProfileId: starterProfiles[0].id,
+  hasSeenWelcome: false,
   profiles: starterProfiles,
 };
 
@@ -54,11 +55,15 @@ function profileGradient(type: ProfileType): string {
 }
 
 export function App() {
-  const [state, setState] = useState<LocalState>(() => loadState() ?? initialState);
+  const [state, setState] = useState<LocalState>(() => {
+    const saved = loadState();
+    return saved ? { ...initialState, ...saved } : initialState;
+  });
   const [tab, setTab] = useState<TabId>('home');
   const [secondsLeft, setSecondsLeft] = useState(120);
   const [isRunning, setIsRunning] = useState(false);
   const [showProfileForm, setShowProfileForm] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(() => !(loadState()?.hasSeenWelcome ?? false));
   const [profileName, setProfileName] = useState('');
   const [profileType, setProfileType] = useState<ProfileType>('child');
   const [ageGroup, setAgeGroup] = useState<ChildAgeGroup>('big-kid');
@@ -182,6 +187,8 @@ export function App() {
     Math.floor((elapsed / 120) * copy.brushing.encouragement.length),
   );
   const encouragement = copy.brushing.encouragement[encouragementIndex];
+  const activeQuadrantIndex = Math.min(3, Math.floor(elapsed / 30));
+  const brushingProgress = (elapsed / 120) * 100;
 
   function shortToothLabel(label: string) {
     return label
@@ -257,6 +264,14 @@ export function App() {
                   <span>ortho hours</span>
                 </div>
               </div>
+              <div className="hero-action-row">
+                <button className="primary-button" onClick={() => setTab('brushing')}>
+                  {copy.brushing.start}
+                </button>
+                <button className="soft-button" onClick={() => setTab('learn')}>
+                  {copy.tabs.learn}
+                </button>
+              </div>
             </section>
             <section className="panel start-panel">
               <div className="section-heading compact-heading">
@@ -297,22 +312,46 @@ export function App() {
 
           {tab === 'brushing' && (
             <section className="panel wide-panel">
-            <div className="section-heading">
-              <div>
-                <p className="eyebrow">{copy.tabs.brushing}</p>
-                <h2>{copy.brushing.title}</h2>
-              </div>
+              <div className="section-heading">
+                <div>
+                  <p className="eyebrow">{copy.tabs.brushing}</p>
+                  <h2>{copy.brushing.title}</h2>
+                </div>
               <p>{copy.brushing.body}</p>
-            </div>
-            <div className="timer-layout">
-              <div className="timer-face">
-                <span>{String(Math.floor(secondsLeft / 60)).padStart(2, '0')}:{String(secondsLeft % 60).padStart(2, '0')}</span>
               </div>
+              <div className="brushing-progress-panel">
+                <div className="progress-ring" style={{ ['--progress' as string]: `${brushingProgress}%` }}>
+                  <div className="progress-ring-inner">
+                    <span>{String(Math.floor(secondsLeft / 60)).padStart(2, '0')}:{String(secondsLeft % 60).padStart(2, '0')}</span>
+                    <small>{copy.brushing.quadrants[activeQuadrantIndex]}</small>
+                  </div>
+                </div>
+                <div className="quadrant-strip">
+                  {copy.brushing.quadrants.map((quadrant, index) => (
+                    <div
+                      key={quadrant}
+                      className={`quadrant-chip ${index === activeQuadrantIndex ? 'active' : ''} ${index < activeQuadrantIndex ? 'done' : ''}`}
+                    >
+                      {quadrant}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            <div className="timer-layout">
               <div className="timer-controls">
                 <p className="coach-line">{secondsLeft === 0 ? copy.brushing.finished : encouragement}</p>
+                <p className="coach-helper">
+                  {secondsLeft === 0
+                    ? copy.brushing.helperFinished
+                    : `${copy.brushing.helperPrefix} ${copy.brushing.quadrants[activeQuadrantIndex].toLowerCase()} ${copy.brushing.helperSuffix}`}
+                </p>
                 <div className="button-row">
-                  <button className="primary-button" onClick={() => setIsRunning(true)} disabled={isRunning}>
-                    {copy.brushing.start}
+                  <button
+                    className="primary-button"
+                    onClick={() => setIsRunning((current) => !current)}
+                    disabled={secondsLeft === 0}
+                  >
+                    {isRunning ? copy.brushing.pause : secondsLeft === 120 ? copy.brushing.start : copy.brushing.resume}
                   </button>
                   <button
                     className="soft-button"
@@ -581,6 +620,34 @@ export function App() {
                 </button>
                 <button className="soft-button" onClick={() => setShowProfileForm(false)}>
                   Close
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : null}
+
+        {showWelcome ? (
+          <div className="modal-backdrop" role="presentation">
+            <div className="modal panel onboarding-modal" role="dialog" aria-modal="true">
+              <p className="eyebrow">{copy.appName}</p>
+              <h2>{copy.home.onboardingTitle}</h2>
+              <p>{copy.home.onboardingBody}</p>
+              <div className="onboarding-points">
+                {copy.home.onboardingPoints.map((point) => (
+                  <div key={point} className="onboarding-point">
+                    {point}
+                  </div>
+                ))}
+              </div>
+              <div className="button-row">
+                <button
+                  className="primary-button"
+                  onClick={() => {
+                    setShowWelcome(false);
+                    setState((current) => ({ ...current, hasSeenWelcome: true }));
+                  }}
+                >
+                  {copy.home.onboardingButton}
                 </button>
               </div>
             </div>
