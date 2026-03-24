@@ -6,6 +6,14 @@ export type ProfileType = 'child' | 'teen';
 
 export type TabId = 'home' | 'brushing' | 'teeth' | 'ortho' | 'learn' | 'parent';
 
+export interface ActivityEntry {
+  id: string;
+  date: string;
+  kind: 'brush' | 'tooth' | 'aligner' | 'tray-change';
+  title: string;
+  detail: string;
+}
+
 export interface Profile {
   id: string;
   name: string;
@@ -19,6 +27,7 @@ export interface Profile {
   alignerGoalHours: number;
   nextTrayChange: string;
   notes: string;
+  activityLog: ActivityEntry[];
 }
 
 export interface LocalState {
@@ -49,6 +58,9 @@ export interface Copy {
     onboardingBody: string;
     onboardingPoints: string[];
     onboardingButton: string;
+    tasksTitle: string;
+    activityTitle: string;
+    emptyActivity: string;
     timerCard: string;
     toothCard: string;
     orthoCard: string;
@@ -91,6 +103,8 @@ export interface Copy {
       inDaysPrefix: string;
       overdue: string;
     };
+    historyTitle: string;
+    emptyHistory: string;
     remindersTitle: string;
     reminders: string[];
     comfortTitle: string;

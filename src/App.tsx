@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { copyByLanguage } from './content';
 import { loadState, saveState } from './storage';
-import type { ChildAgeGroup, Language, LocalState, Profile, ProfileType, TabId } from './types';
+import type { ActivityEntry, ChildAgeGroup, Language, LocalState, Profile, ProfileType, TabId } from './types';
 
 const today = new Date().toISOString().slice(0, 10);
 const defaultTrayChange = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
@@ -20,6 +20,7 @@ const starterProfiles: Profile[] = [
     alignerGoalHours: 20,
     nextTrayChange: defaultTrayChange,
     notes: '',
+    activityLog: [],
   },
   {
     id: crypto.randomUUID(),
@@ -34,6 +35,7 @@ const starterProfiles: Profile[] = [
     alignerGoalHours: 22,
     nextTrayChange: defaultTrayChange,
     notes: '',
+    activityLog: [],
   },
 ];
 
@@ -65,7 +67,18 @@ function daysBetween(dateA: string, dateB: string): number {
 export function App() {
   const [state, setState] = useState<LocalState>(() => {
     const saved = loadState();
-    return saved ? { ...initialState, ...saved } : initialState;
+    if (!saved) {
+      return initialState;
+    }
+
+    return {
+      ...initialState,
+      ...saved,
+      profiles: saved.profiles.map((profile) => ({
+        ...profile,
+        activityLog: profile.activityLog ?? [],
+      })),
+    };
   });
   const [tab, setTab] = useState<TabId>('home');
   const [secondsLeft, setSecondsLeft] = useState(120);
@@ -118,6 +131,20 @@ export function App() {
     }));
   }
 
+  function addActivity(profileId: string, entry: Omit<ActivityEntry, 'id' | 'date'>) {
+    updateProfile(profileId, (profile) => ({
+      ...profile,
+      activityLog: [
+        {
+          id: crypto.randomUUID(),
+          date: new Date().toISOString(),
+          ...entry,
+        },
+        ...profile.activityLog,
+      ].slice(0, 12),
+    }));
+  }
+
   function markBrushed() {
     if (!activeProfile) {
       return;
@@ -128,6 +155,11 @@ export function App() {
       lastBrushedOn: today,
       streak: profile.lastBrushedOn === today ? profile.streak : profile.streak + 1,
     }));
+    addActivity(activeProfile.id, {
+      kind: 'brush',
+      title: 'Brushing session complete',
+      detail: 'Finished a full 2-minute routine.',
+    });
   }
 
   function toggleTooth(label: string) {
@@ -141,6 +173,11 @@ export function App() {
         ...profile,
         teethLost: exists ? profile.teethLost.filter((item) => item !== label) : [...profile.teethLost, label],
       };
+    });
+    addActivity(activeProfile.id, {
+      kind: 'tooth',
+      title: 'Tooth milestone updated',
+      detail: label,
     });
   }
 
@@ -163,6 +200,7 @@ export function App() {
       alignerGoalHours: profileType === 'teen' ? 22 : 0,
       nextTrayChange: defaultTrayChange,
       notes: '',
+      activityLog: [],
     };
 
     setState((current) => ({
@@ -213,6 +251,31 @@ export function App() {
     daysUntilTrayChange === 1 ? copy.ortho.nextChangeLabels.tomorrow :
     `${copy.ortho.nextChangeLabels.inDaysPrefix}: ${daysUntilTrayChange}`;
   const learnSections = copy.learn.sections.filter((section) => section.ageGroups.includes(activeProfile.ageGroup));
+  const recentActivity = activeProfile.activityLog.slice(0, 4);
+  const orthoActivity = activeProfile.activityLog.filter((entry) => entry.kind === 'aligner' || entry.kind === 'tray-change').slice(0, 4);
+  const dailyTasks = [
+    {
+      id: 'brush',
+      title: copy.brushing.start,
+      body: activeProfile.lastBrushedOn === today ? 'Already completed today.' : 'Knock out today’s 2-minute brushing routine.',
+      action: () => setTab('brushing'),
+    },
+    {
+      id: activeProfile.type === 'teen' ? 'ortho' : 'teeth',
+      title: activeProfile.type === 'teen' ? copy.tabs.ortho : copy.tabs.teeth,
+      body:
+        activeProfile.type === 'teen'
+          ? `${alignerProgress}% of today’s aligner goal tracked.`
+          : `${activeProfile.teethLost.length} tooth milestones logged so far.`,
+      action: () => setTab(activeProfile.type === 'teen' ? 'ortho' : 'teeth'),
+    },
+    {
+      id: 'learn',
+      title: copy.tabs.learn,
+      body: `Explore ${learnSections[0]?.title?.toLowerCase() ?? 'today’s'} learning cards.`,
+      action: () => setTab('learn'),
+    },
+  ];
 
   function shortToothLabel(label: string) {
     return label
@@ -309,6 +372,23 @@ export function App() {
               <section className="panel start-panel">
                 <div className="section-heading compact-heading">
                   <div>
+                    <p className="eyebrow">{copy.home.tasksTitle}</p>
+                    <h2>{activeProfile.name}&apos;s plan for today</h2>
+                  </div>
+                </div>
+                <div className="task-list">
+                  {dailyTasks.map((task) => (
+                    <button key={task.id} className="task-card" onClick={task.action}>
+                      <strong>{task.title}</strong>
+                      <span>{task.body}</span>
+                    </button>
+                  ))}
+                </div>
+              </section>
+
+              <section className="panel start-panel">
+                <div className="section-heading compact-heading">
+                  <div>
                     <p className="eyebrow">{copy.home.startHereTitle}</p>
                     <h2>{activeProfile.name}'s next steps</h2>
                   </div>
@@ -321,6 +401,27 @@ export function App() {
                     </button>
                   ))}
                 </div>
+              </section>
+
+              <section className="panel start-panel">
+                <div className="section-heading compact-heading">
+                  <div>
+                    <p className="eyebrow">{copy.home.activityTitle}</p>
+                    <h2>Latest smile moments</h2>
+                  </div>
+                </div>
+                {recentActivity.length > 0 ? (
+                  <div className="activity-list">
+                    {recentActivity.map((entry) => (
+                      <div key={entry.id} className="activity-card">
+                        <strong>{entry.title}</strong>
+                        <span>{entry.detail}</span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="disclaimer">{copy.home.emptyActivity}</p>
+                )}
               </section>
 
               <section className="card-grid">
@@ -499,23 +600,33 @@ export function App() {
                   <div className="button-row">
                     <button
                       className="primary-button"
-                      onClick={() =>
+                      onClick={() => {
                         updateProfile(activeProfile.id, (profile) => ({
                           ...profile,
                           alignerHoursToday: Math.min(profile.alignerGoalHours, profile.alignerHoursToday + 1),
-                        }))
-                      }
+                        }));
+                        addActivity(activeProfile.id, {
+                          kind: 'aligner',
+                          title: 'Aligner time updated',
+                          detail: 'Logged one more hour toward today’s goal.',
+                        });
+                      }}
                     >
                       {copy.ortho.addHour}
                     </button>
                     <button
                       className="soft-button"
-                      onClick={() =>
+                      onClick={() => {
                         updateProfile(activeProfile.id, (profile) => ({
                           ...profile,
                           alignerHoursToday: Math.max(0, profile.alignerHoursToday - 1),
-                        }))
-                      }
+                        }));
+                        addActivity(activeProfile.id, {
+                          kind: 'aligner',
+                          title: 'Aligner time adjusted',
+                          detail: 'Updated today’s wear-time estimate.',
+                        });
+                      }}
                     >
                       {copy.ortho.subtractHour}
                     </button>
@@ -527,12 +638,17 @@ export function App() {
                   <input
                     type="date"
                     value={activeProfile.nextTrayChange}
-                    onChange={(event) =>
+                    onChange={(event) => {
                       updateProfile(activeProfile.id, (profile) => ({
                         ...profile,
                         nextTrayChange: event.target.value,
-                      }))
-                    }
+                      }));
+                      addActivity(activeProfile.id, {
+                        kind: 'tray-change',
+                        title: 'Tray-change date updated',
+                        detail: event.target.value,
+                      });
+                    }}
                   />
                   <p className="inline-note">{nextTrayChangeLabel}</p>
                 </div>
@@ -553,6 +669,21 @@ export function App() {
                       <li key={tip}>{tip}</li>
                     ))}
                   </ul>
+                </div>
+                <div className="ortho-panel">
+                  <strong>{copy.ortho.historyTitle}</strong>
+                  {orthoActivity.length > 0 ? (
+                    <div className="activity-list compact-activity-list">
+                      {orthoActivity.map((entry) => (
+                        <div key={entry.id} className="activity-card compact-activity-card">
+                          <strong>{entry.title}</strong>
+                          <span>{entry.detail}</span>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="inline-note">{copy.ortho.emptyHistory}</p>
+                  )}
                 </div>
               </div>
             </section>
