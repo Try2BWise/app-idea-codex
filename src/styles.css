@@ -337,6 +337,7 @@ button {
   border: 1px solid var(--line);
   font-weight: 700;
   color: var(--ink);
+  text-align: left;
 }
 
 .timer-layout,
@@ -422,6 +423,40 @@ button {
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.8);
   padding: 20px;
+}
+
+.ortho-status-card {
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(236, 247, 255, 0.92));
+  border: 1px solid var(--line);
+}
+
+.ortho-status-card h3 {
+  margin: 0;
+}
+
+.ortho-progress-bar {
+  width: 100%;
+  height: 12px;
+  border-radius: 999px;
+  background: rgba(94, 194, 255, 0.18);
+  overflow: hidden;
+}
+
+.ortho-progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #5ec2ff 0%, #2c77f4 100%);
+}
+
+.inline-note,
+.field-help {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.88rem;
 }
 
 .timer-controls {
@@ -557,6 +592,11 @@ button {
   gap: 10px;
 }
 
+.learn-section {
+  display: grid;
+  gap: 14px;
+}
+
 .learn-card span {
   color: #f06f38;
   font-size: 0.8rem;
@@ -658,6 +698,63 @@ button {
 .onboarding-modal {
   display: grid;
   gap: 14px;
+}
+
+.profile-modal {
+  display: grid;
+  gap: 14px;
+}
+
+.profile-stepper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.step-dot {
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(94, 194, 255, 0.2);
+}
+
+.step-dot.active,
+.step-dot.done {
+  background: linear-gradient(135deg, #ffb84d 0%, #ff6f61 100%);
+}
+
+.profile-choice-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.choice-card {
+  display: grid;
+  gap: 6px;
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid var(--line);
+  text-align: left;
+  color: var(--ink);
+}
+
+.choice-card span,
+.profile-preview span {
+  color: var(--muted);
+}
+
+.choice-card.selected {
+  background: linear-gradient(135deg, rgba(255, 184, 77, 0.22), rgba(255, 111, 97, 0.18));
+  border-color: rgba(240, 111, 56, 0.25);
+}
+
+.profile-preview {
+  display: grid;
+  gap: 6px;
+  padding: 14px;
+  border-radius: 18px;
+  background: rgba(245, 250, 255, 0.9);
+  border: 1px solid var(--line);
 }
 
 .onboarding-points {

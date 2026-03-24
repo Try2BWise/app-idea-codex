@@ -78,6 +78,24 @@ export const copyByLanguage: Record<Language, Copy> = {
       body: 'Track aligner hours and keep tray changes from sneaking up on you.',
       goal: 'Goal hours today',
       nextChange: 'Next tray change',
+      progressTitle: 'Today’s progress',
+      progressStates: {
+        strong: 'Strong routine',
+        steady: 'Steady progress',
+        needsCare: 'Needs a reset',
+      },
+      nextChangeLabels: {
+        today: 'Tray change is today',
+        tomorrow: 'Tray change is tomorrow',
+        inDaysPrefix: 'Days until next change',
+        overdue: 'Tray change has passed',
+      },
+      remindersTitle: 'Helpful reminders',
+      reminders: [
+        'Wear aligners as directed by your orthodontic team.',
+        'Take them out for meals unless your orthodontist says otherwise.',
+        'Use the case instead of wrapping them in a napkin.',
+      ],
       comfortTitle: 'Comfort tips',
       comfortTips: [
         'Use a fresh case so aligners stay clean.',
@@ -91,54 +109,104 @@ export const copyByLanguage: Record<Language, Copy> = {
     learn: {
       title: 'Meet the tools',
       body: 'Short explainers can make a dental visit feel more predictable and less stressful. These are learning notes, not medical advice.',
-      cards: [
+      sections: [
         {
-          title: 'Mirror',
-          tag: 'Dental tool',
-          body: 'A tiny mirror helps the dentist peek around corners and shine light where it is hard to see.',
-          art: '/art/mirror.svg'
+          id: 'little-kid-basics',
+          title: 'For younger kids',
+          body: 'Simple, calm ideas for first visits and daily brushing.',
+          ageGroups: ['little-kid'],
+          cards: [
+            {
+              title: 'Mirror',
+              tag: 'Dental tool',
+              body: 'A tiny mirror helps the dentist peek around corners and shine light where it is hard to see.',
+              art: '/art/mirror.svg'
+            },
+            {
+              title: 'Suction straw',
+              tag: 'Dental tool',
+              body: 'The suction straw is like a little vacuum for water, so it is easier to stay comfortable during a visit.',
+              art: '/art/suction.svg'
+            },
+            {
+              title: 'Toothpaste size',
+              tag: 'Healthy habit',
+              body: 'Use a grain-of-rice smear before age 3 and a pea-sized amount from ages 3 to 6.',
+              art: '/art/toothpaste.svg'
+            },
+            {
+              title: 'First dental visit',
+              tag: 'Parent tip',
+              body: 'The first dental visit should happen by the first tooth or first birthday, whichever comes first.',
+              art: '/art/visit.svg'
+            },
+          ],
         },
         {
-          title: 'Suction straw',
-          tag: 'Dental tool',
-          body: 'The suction straw is like a little vacuum for water, so it is easier to stay comfortable during a visit.',
-          art: '/art/suction.svg'
+          id: 'big-kid-learning',
+          title: 'For school-age kids',
+          body: 'A little more detail for children ready to learn what happens at the dentist.',
+          ageGroups: ['big-kid'],
+          cards: [
+            {
+              title: 'Explorer',
+              tag: 'Dental tool',
+              body: 'The explorer is a checking tool. It helps the dentist feel the tooth surface and look for spots that need attention.',
+              art: '/art/explorer.svg'
+            },
+            {
+              title: 'Scaler',
+              tag: 'Dental tool',
+              body: 'A scaler helps clean away stuck-on buildup that a toothbrush cannot always reach.',
+              art: '/art/scaler.svg'
+            },
+            {
+              title: 'Sealants',
+              tag: 'Smile fact',
+              body: 'Sealants are like a raincoat for the bumpy tops of back teeth. They help protect molars from cavities.',
+              art: '/art/sealant.svg'
+            },
+          ],
         },
         {
-          title: 'Explorer',
-          tag: 'Dental tool',
-          body: 'The explorer is a checking tool. It helps the dentist feel the tooth surface and look for spots that need attention.',
-          art: '/art/explorer.svg'
+          id: 'teen-ortho',
+          title: 'For teens and ortho routines',
+          body: 'Short notes that support aligner care and independence.',
+          ageGroups: ['teen'],
+          cards: [
+            {
+              title: 'Braces wax',
+              tag: 'Ortho help',
+              body: 'Orthodontic wax can cover a spot that rubs until your orthodontic team can check it.',
+              art: '/art/wax.svg'
+            },
+            {
+              title: 'Aligner care',
+              tag: 'Ortho habit',
+              body: 'Use your case, keep aligners clean, and stick to your orthodontist’s wear schedule.',
+              art: '/art/wax.svg'
+            },
+            {
+              title: 'Tray change prep',
+              tag: 'Ortho routine',
+              body: 'A planned tray-change day can make it easier to stay on track and remember what comes next.',
+              art: '/art/visit.svg'
+            },
+          ],
         },
         {
-          title: 'Scaler',
-          tag: 'Dental tool',
-          body: 'A scaler helps clean away stuck-on buildup that a toothbrush cannot always reach.',
-          art: '/art/scaler.svg'
-        },
-        {
-          title: 'Toothpaste size',
-          tag: 'Healthy habit',
-          body: 'Use a grain-of-rice smear before age 3 and a pea-sized amount from ages 3 to 6.',
-          art: '/art/toothpaste.svg'
-        },
-        {
-          title: 'First dental visit',
-          tag: 'Parent tip',
-          body: 'The first dental visit should happen by the first tooth or first birthday, whichever comes first.',
-          art: '/art/visit.svg'
-        },
-        {
-          title: 'Sealants',
-          tag: 'Smile fact',
-          body: 'Sealants are like a raincoat for the bumpy tops of back teeth. They help protect molars from cavities.',
-          art: '/art/sealant.svg'
-        },
-        {
-          title: 'Braces wax',
-          tag: 'Ortho help',
-          body: 'Orthodontic wax can cover a spot that rubs until your orthodontic team can check it.',
-          art: '/art/wax.svg'
+          id: 'family-shared',
+          title: 'For all families',
+          body: 'Helpful notes that work across ages.',
+          ageGroups: ['little-kid', 'big-kid', 'teen'],
+          cards: [
+            {
+              title: 'Healthy brushing',
+              tag: 'Habit',
+              body: 'Brush twice a day for 2 minutes, using gentle circles across every side of each tooth.',
+              art: '/art/toothpaste.svg'
+            },
+          ],
         },
       ],
     },
@@ -155,12 +223,16 @@ export const copyByLanguage: Record<Language, Copy> = {
       name: 'Name',
       type: 'Profile type',
       ageGroup: 'Age group',
+      ageGroupHelp: 'Pick the age band that best matches how this child learns and uses the app.',
       save: 'Save profile',
+      previewTitle: 'Profile preview',
       child: 'Child',
       teen: 'Teen',
       littleKid: 'Ages 4 to 7',
       bigKid: 'Ages 8 to 12',
       teenager: 'Ages 13 to 17',
+      childDescription: 'Best for younger kids focused on brushing, visits, and tooth milestones.',
+      teenDescription: 'Best for older kids or teens using aligners and more independent routines.',
     },
   },
   es: {
@@ -225,6 +297,24 @@ export const copyByLanguage: Record<Language, Copy> = {
       body: 'Registra horas de alineadores y evita olvidar el cambio de bandejas.',
       goal: 'Meta de horas hoy',
       nextChange: 'Proximo cambio',
+      progressTitle: 'Progreso de hoy',
+      progressStates: {
+        strong: 'Rutina fuerte',
+        steady: 'Buen avance',
+        needsCare: 'Necesita reinicio',
+      },
+      nextChangeLabels: {
+        today: 'El cambio es hoy',
+        tomorrow: 'El cambio es manana',
+        inDaysPrefix: 'Dias para el proximo cambio',
+        overdue: 'La fecha de cambio ya paso',
+      },
+      remindersTitle: 'Recordatorios utiles',
+      reminders: [
+        'Usa los alineadores segun las indicaciones del equipo de ortodoncia.',
+        'Quitalos para comer, a menos que te digan otra cosa.',
+        'Guarda los alineadores en su estuche, no en una servilleta.',
+      ],
       comfortTitle: 'Consejos de comodidad',
       comfortTips: [
         'Usa un estuche limpio para mantener los alineadores seguros.',
@@ -238,54 +328,104 @@ export const copyByLanguage: Record<Language, Copy> = {
     learn: {
       title: 'Conoce las herramientas',
       body: 'Las explicaciones cortas pueden hacer que una visita dental se sienta menos estresante. Son notas educativas, no consejo medico.',
-      cards: [
+      sections: [
         {
-          title: 'Espejo',
-          tag: 'Herramienta dental',
-          body: 'Un pequeno espejo ayuda a ver rincones y a llevar luz a lugares dificiles de mirar.',
-          art: '/art/mirror.svg'
+          id: 'little-kid-basics',
+          title: 'Para peques',
+          body: 'Ideas simples y tranquilas para primeras visitas y cepillado diario.',
+          ageGroups: ['little-kid'],
+          cards: [
+            {
+              title: 'Espejo',
+              tag: 'Herramienta dental',
+              body: 'Un pequeno espejo ayuda a ver rincones y a llevar luz a lugares dificiles de mirar.',
+              art: '/art/mirror.svg'
+            },
+            {
+              title: 'Succion',
+              tag: 'Herramienta dental',
+              body: 'La succion funciona como una pequena aspiradora de agua para que la boca se sienta mas comoda.',
+              art: '/art/suction.svg'
+            },
+            {
+              title: 'Cantidad de pasta',
+              tag: 'Habito',
+              body: 'Usa una mancha del tamano de un grano de arroz antes de los 3 anos y una cantidad del tamano de un guisante entre 3 y 6 anos.',
+              art: '/art/toothpaste.svg'
+            },
+            {
+              title: 'Primera visita dental',
+              tag: 'Consejo para padres',
+              body: 'La primera visita dental debe ser cuando salga el primer diente o antes del primer cumpleanos.',
+              art: '/art/visit.svg'
+            },
+          ],
         },
         {
-          title: 'Succion',
-          tag: 'Herramienta dental',
-          body: 'La succion funciona como una pequena aspiradora de agua para que la boca se sienta mas comoda.',
-          art: '/art/suction.svg'
+          id: 'big-kid-learning',
+          title: 'Para ninos en edad escolar',
+          body: 'Un poco mas de detalle para quienes quieren entender mejor la visita dental.',
+          ageGroups: ['big-kid'],
+          cards: [
+            {
+              title: 'Explorador',
+              tag: 'Herramienta dental',
+              body: 'El explorador ayuda a revisar la superficie del diente y encontrar zonas que necesitan atencion.',
+              art: '/art/explorer.svg'
+            },
+            {
+              title: 'Escariador',
+              tag: 'Herramienta dental',
+              body: 'El escariador ayuda a quitar acumulacion pegada que un cepillo no siempre puede alcanzar.',
+              art: '/art/scaler.svg'
+            },
+            {
+              title: 'Selladores',
+              tag: 'Dato',
+              body: 'Los selladores son como un impermeable para la parte con surcos de las muelas. Ayudan a proteger de caries.',
+              art: '/art/sealant.svg'
+            },
+          ],
         },
         {
-          title: 'Explorador',
-          tag: 'Herramienta dental',
-          body: 'El explorador ayuda a revisar la superficie del diente y encontrar zonas que necesitan atencion.',
-          art: '/art/explorer.svg'
+          id: 'teen-ortho',
+          title: 'Para adolescentes y ortodoncia',
+          body: 'Notas breves para apoyar alineadores y rutinas mas independientes.',
+          ageGroups: ['teen'],
+          cards: [
+            {
+              title: 'Cera',
+              tag: 'Ayuda orto',
+              body: 'La cera de ortodoncia puede cubrir una zona que roza hasta que el equipo la revise.',
+              art: '/art/wax.svg'
+            },
+            {
+              title: 'Cuidado del alineador',
+              tag: 'Habito orto',
+              body: 'Usa tu estuche, limpia los alineadores y sigue el horario indicado por tu ortodoncista.',
+              art: '/art/wax.svg'
+            },
+            {
+              title: 'Preparar el cambio',
+              tag: 'Rutina orto',
+              body: 'Tener un dia de cambio planeado ayuda a seguir el ritmo y recordar el siguiente paso.',
+              art: '/art/visit.svg'
+            },
+          ],
         },
         {
-          title: 'Escariador',
-          tag: 'Herramienta dental',
-          body: 'El escariador ayuda a quitar acumulacion pegada que un cepillo no siempre puede alcanzar.',
-          art: '/art/scaler.svg'
-        },
-        {
-          title: 'Cantidad de pasta',
-          tag: 'Habito',
-          body: 'Usa una mancha del tamano de un grano de arroz antes de los 3 anos y una cantidad del tamano de un guisante entre 3 y 6 anos.',
-          art: '/art/toothpaste.svg'
-        },
-        {
-          title: 'Primera visita dental',
-          tag: 'Consejo para padres',
-          body: 'La primera visita dental debe ser cuando salga el primer diente o antes del primer cumpleanos.',
-          art: '/art/visit.svg'
-        },
-        {
-          title: 'Selladores',
-          tag: 'Dato',
-          body: 'Los selladores son como un impermeable para la parte con surcos de las muelas. Ayudan a proteger de caries.',
-          art: '/art/sealant.svg'
-        },
-        {
-          title: 'Cera',
-          tag: 'Ayuda orto',
-          body: 'La cera de ortodoncia puede cubrir una zona que roza hasta que el equipo la revise.',
-          art: '/art/wax.svg'
+          id: 'family-shared',
+          title: 'Para toda la familia',
+          body: 'Recordatorios utiles para cualquier edad.',
+          ageGroups: ['little-kid', 'big-kid', 'teen'],
+          cards: [
+            {
+              title: 'Cepillado saludable',
+              tag: 'Habito',
+              body: 'Cepilla dos veces al dia por 2 minutos con circulos suaves en cada lado del diente.',
+              art: '/art/toothpaste.svg'
+            },
+          ],
         },
       ],
     },
@@ -302,12 +442,16 @@ export const copyByLanguage: Record<Language, Copy> = {
       name: 'Nombre',
       type: 'Tipo de perfil',
       ageGroup: 'Grupo de edad',
+      ageGroupHelp: 'Elige el grupo que mejor coincide con la edad y la forma de aprender de esta persona.',
       save: 'Guardar perfil',
+      previewTitle: 'Vista previa del perfil',
       child: 'Nino',
       teen: 'Adolescente',
       littleKid: 'Edades 4 a 7',
       bigKid: 'Edades 8 a 12',
       teenager: 'Edades 13 a 17',
+      childDescription: 'Ideal para peques enfocados en cepillado, visitas y cambios dentales.',
+      teenDescription: 'Ideal para mayores o adolescentes con alineadores y rutinas mas independientes.',
     },
   },
 };

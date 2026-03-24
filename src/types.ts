@@ -79,6 +79,20 @@ export interface Copy {
     body: string;
     goal: string;
     nextChange: string;
+    progressTitle: string;
+    progressStates: {
+      strong: string;
+      steady: string;
+      needsCare: string;
+    };
+    nextChangeLabels: {
+      today: string;
+      tomorrow: string;
+      inDaysPrefix: string;
+      overdue: string;
+    };
+    remindersTitle: string;
+    reminders: string[];
     comfortTitle: string;
     comfortTips: string[];
     addHour: string;
@@ -87,7 +101,13 @@ export interface Copy {
   learn: {
     title: string;
     body: string;
-    cards: { title: string; body: string; tag: string; art: string }[];
+    sections: {
+      id: string;
+      title: string;
+      body: string;
+      ageGroups: ChildAgeGroup[];
+      cards: { title: string; body: string; tag: string; art: string }[];
+    }[];
   };
   parent: {
     title: string;
@@ -102,11 +122,15 @@ export interface Copy {
     name: string;
     type: string;
     ageGroup: string;
+    ageGroupHelp: string;
     save: string;
+    previewTitle: string;
     child: string;
     teen: string;
     littleKid: string;
     bigKid: string;
     teenager: string;
+    childDescription: string;
+    teenDescription: string;
   };
 }
