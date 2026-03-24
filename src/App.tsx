@@ -317,6 +317,38 @@ export function App() {
     { id: 'learn', ...crew.learn, action: () => setTab('learn') },
   ] as const;
   const brushingRewards = ['Champion', 'Superstar', 'Sparkly finish'];
+  const captainHomeLine =
+    activeProfile.lastBrushedOn === today
+      ? `Captain Brush says ${activeProfile.name} is already glowing today.`
+      : `Captain Brush is ready to coach ${activeProfile.name}'s next smile mission.`;
+  const captainMissionPills = [
+    activeProfile.lastBrushedOn === today ? 'Brush mission complete' : '2-minute mission ready',
+    activeProfile.type === 'teen' ? `${alignerProgress}% ortho rhythm` : `${activeProfile.teethLost.length} smile milestones`,
+    `${activeProfile.streak} day streak`,
+  ];
+  const captainMode =
+    secondsLeft === 0 ? 'victory' :
+    isRunning ? 'active' :
+    secondsLeft < 120 ? 'paused' :
+    'ready';
+  const captainHeadline =
+    captainMode === 'victory' ? 'Mission complete' :
+    captainMode === 'active' ? `Now brushing ${copy.brushing.quadrants[activeQuadrantIndex]}` :
+    captainMode === 'paused' ? 'Mission paused' :
+    'Mission ready';
+  const captainSubline =
+    captainMode === 'victory'
+      ? copy.brushing.helperFinished
+      : captainMode === 'active'
+        ? `${copy.brushing.helperPrefix} ${copy.brushing.quadrants[activeQuadrantIndex].toLowerCase()} ${copy.brushing.helperSuffix}`
+        : captainMode === 'paused'
+          ? 'Captain Brush is holding your place. Jump back in when you are ready.'
+          : 'Captain Brush will guide one section at a time with quick, upbeat cues.';
+  const captainStatusPills = [
+    copy.brushing.quadrants[activeQuadrantIndex],
+    secondsLeft === 0 ? '100% complete' : `${Math.round(brushingProgress)}% complete`,
+    captainMode === 'active' ? 'Coach mode live' : captainMode === 'victory' ? 'Victory mode' : 'Ready for launch',
+  ];
   const dailyTasks = [
     {
       id: 'brush',
@@ -409,14 +441,30 @@ export function App() {
             <>
               <section className={`panel spotlight character-stage ${crew.home.accent}`}>
                 <div className="character-stage-layout">
-                  <div className="character-stage-top">
-                    <div className="crew-medallion">SC</div>
-                    <div>
-                      <p className="eyebrow">{copy.tagline}</p>
-                      <h2>{copy.home.welcome} {activeProfile.name}</h2>
+                  <div className="character-stage-copy">
+                    <div className="character-stage-top">
+                      <div className="crew-medallion">SC</div>
+                      <div>
+                        <p className="eyebrow">{copy.tagline}</p>
+                        <h2>{copy.home.welcome} {activeProfile.name}</h2>
+                      </div>
+                    </div>
+                    <div className="captain-bubble captain-home-bubble">
+                      <strong>Captain Brush</strong>
+                      <p>{captainHomeLine}</p>
                     </div>
                   </div>
-                  <img className="feature-character art-captain" src={captainBrushAssets.hero} alt="Captain Brush" />
+                  <div className="captain-stage-art">
+                    <div className="captain-stage-glow" aria-hidden="true" />
+                    <img className="feature-character art-captain" src={captainBrushAssets.hero} alt="Captain Brush" />
+                  </div>
+                </div>
+                <div className="captain-mission-strip" aria-label="Mission status">
+                  {captainMissionPills.map((pill) => (
+                    <span key={pill} className="mission-pill">
+                      {pill}
+                    </span>
+                  ))}
                 </div>
                 <p>{copy.home.dailyPlan}</p>
                 <button className="link-button" onClick={() => setShowIntroDetails((current) => !current)}>
@@ -574,14 +622,29 @@ export function App() {
               </div>
 
               <div className="guide-callout">
-                <img
-                  className="guide-art"
-                  src={secondsLeft === 0 ? captainBrushAssets.win : captainBrushAssets.coach}
-                  alt="Captain Brush"
-                />
-                <div className="speech-bubble">
-                  <strong>{crew.brushing.title}</strong>
-                  <p>{secondsLeft === 0 ? copy.brushing.helperFinished : `${copy.brushing.helperPrefix} ${copy.brushing.quadrants[activeQuadrantIndex].toLowerCase()} ${copy.brushing.helperSuffix}`}</p>
+                <div className={`captain-coach-card captain-${captainMode}`}>
+                  <div className="captain-coach-art">
+                    <div className="captain-stage-glow small" aria-hidden="true" />
+                    <img
+                      className="guide-art"
+                      src={secondsLeft === 0 ? captainBrushAssets.win : captainBrushAssets.coach}
+                      alt="Captain Brush"
+                    />
+                  </div>
+                  <div className="speech-bubble captain-speech">
+                    <div className="speech-badge-row">
+                      <strong>{crew.brushing.title}</strong>
+                      <span className="coach-badge">{captainHeadline}</span>
+                    </div>
+                    <p>{captainSubline}</p>
+                    <div className="captain-status-strip">
+                      {captainStatusPills.map((pill) => (
+                        <span key={pill} className="captain-status-pill">
+                          {pill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -607,6 +670,10 @@ export function App() {
               <div className="timer-layout">
                 <div className="timer-controls">
                   <p className="coach-line">{secondsLeft === 0 ? copy.brushing.finished : encouragement}</p>
+                  <div className="captain-mini-banner">
+                    <span className="captain-mini-mark">CB</span>
+                    <p>{captainMode === 'victory' ? `${activeProfile.name} finished strong.` : 'Captain Brush is pacing the mission for you.'}</p>
+                  </div>
                   <div className="reward-strip">
                     {brushingRewards.map((reward, index) => (
                       <span key={reward} className={`reward-chip ${elapsed / 30 > index ? 'earned' : ''}`}>
