@@ -4,7 +4,7 @@ Updated: 2026-03-23
 
 ## Purpose
 
-This note collects source-backed oral-health guidance for the BrightBrush proof of concept. It is written for future product planning, copywriting, and content review. The app itself should keep a warm, calm, age-appropriate voice and avoid diagnosis or treatment advice.
+This note collects source-backed oral-health guidance for the SmileSteps proof of concept. It is written for future product planning, copywriting, and content review. The app itself should keep a warm, calm, age-appropriate voice and avoid diagnosis or treatment advice.
 
 ## High-confidence takeaways
 

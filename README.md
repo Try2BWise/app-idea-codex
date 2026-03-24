@@ -1,6 +1,6 @@
-# BrightBrush POC
+# SmileSteps POC
 
-BrightBrush is a local-first pediatric dental and orthodontic engagement proof of concept built as a React + Vite PWA.
+SmileSteps is a local-first pediatric dental and orthodontic engagement proof of concept built as a React + Vite PWA.
 
 ## Local development
 

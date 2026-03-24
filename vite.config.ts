@@ -13,8 +13,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg'],
       manifest: {
-        name: 'BrightBrush POC',
-        short_name: 'BrightBrush',
+        name: 'SmileSteps POC',
+        short_name: 'SmileSteps',
         description: 'A kid-friendly pediatric and orthodontic engagement PWA proof of concept.',
         theme_color: '#ff8552',
         background_color: '#fff9f1',

@@ -182,57 +182,46 @@ export function App() {
 
   return (
     <div className="app-shell">
-      <header className="hero">
-        <div>
-          <p className="eyebrow">{copy.appName}</p>
-          <h1>{copy.heroTitle}</h1>
-          <p className="hero-copy">{copy.heroBody}</p>
-        </div>
-        <div className="hero-controls">
-          <label className="stacked-label">
-            <span>{copy.languageLabel}</span>
-            <select
-              value={state.language}
-              onChange={(event) => setState((current) => ({ ...current, language: event.target.value as Language }))}
+      <div className="phone-frame">
+        <header className="hero">
+          <div className="hero-copy-block">
+            <p className="eyebrow">{copy.appName}</p>
+            <h1>{copy.heroTitle}</h1>
+            <p className="hero-copy">{copy.heroBody}</p>
+          </div>
+          <div className="hero-controls">
+            <label className="stacked-label">
+              <span>{copy.languageLabel}</span>
+              <select
+                value={state.language}
+                onChange={(event) => setState((current) => ({ ...current, language: event.target.value as Language }))}
+              >
+                <option value="en">English</option>
+                <option value="es">Español</option>
+              </select>
+            </label>
+            <button className="soft-button" onClick={() => setShowProfileForm(true)}>
+              {copy.createProfile}
+            </button>
+          </div>
+        </header>
+
+        <section className="profile-strip">
+          {state.profiles.map((profile) => (
+            <button
+              key={profile.id}
+              className={`profile-chip ${profile.id === activeProfile.id ? 'active' : ''}`}
+              onClick={() => setState((current) => ({ ...current, activeProfileId: profile.id }))}
+              style={{ backgroundImage: profileGradient(profile.type) }}
             >
-              <option value="en">English</option>
-              <option value="es">Español</option>
-            </select>
-          </label>
-          <button className="soft-button" onClick={() => setShowProfileForm(true)}>
-            {copy.createProfile}
-          </button>
-        </div>
-      </header>
+              <span>{profile.name}</span>
+              <small>{profile.type === 'teen' ? 'Teen ortho' : 'Kid smile'}</small>
+            </button>
+          ))}
+        </section>
 
-      <section className="profile-strip">
-        {state.profiles.map((profile) => (
-          <button
-            key={profile.id}
-            className={`profile-chip ${profile.id === activeProfile.id ? 'active' : ''}`}
-            onClick={() => setState((current) => ({ ...current, activeProfileId: profile.id }))}
-            style={{ backgroundImage: profileGradient(profile.type) }}
-          >
-            <span>{profile.name}</span>
-            <small>{profile.type === 'teen' ? 'Teen ortho' : 'Kid smile'}</small>
-          </button>
-        ))}
-      </section>
-
-      <nav className="tab-bar" aria-label="Primary">
-        {(Object.keys(copy.tabs) as TabId[]).map((tabId) => (
-          <button
-            key={tabId}
-            className={tab === tabId ? 'active' : ''}
-            onClick={() => setTab(tabId)}
-          >
-            {copy.tabs[tabId]}
-          </button>
-        ))}
-      </nav>
-
-      <main className="content-grid">
-        {tab === 'home' && (
+        <main className="content-grid">
+          {tab === 'home' && (
           <>
             <section className="panel spotlight">
               <p className="eyebrow">{copy.tagline}</p>
@@ -243,11 +232,11 @@ export function App() {
               <div className="stat-row">
                 <div className="stat-card">
                   <strong>{activeProfile.streak}</strong>
-                  <span>day streak</span>
+                  <span>streak days</span>
                 </div>
                 <div className="stat-card">
                   <strong>{activeProfile.teethLost.length}</strong>
-                  <span>tooth updates</span>
+                  <span>tooth notes</span>
                 </div>
                 <div className="stat-card">
                   <strong>{activeProfile.alignerHoursToday}</strong>
@@ -255,29 +244,45 @@ export function App() {
                 </div>
               </div>
             </section>
+            <section className="panel start-panel">
+              <div className="section-heading compact-heading">
+                <div>
+                  <p className="eyebrow">{copy.home.startHereTitle}</p>
+                  <h2>{activeProfile.name}'s next steps</h2>
+                </div>
+                <p>{copy.home.startHereBody}</p>
+              </div>
+              <div className="step-list">
+                {copy.home.nextSteps.map((step) => (
+                  <div key={step} className="step-chip">
+                    {step}
+                  </div>
+                ))}
+              </div>
+            </section>
             <section className="card-grid">
-              <article className="panel tile">
+              <button className="panel tile action-tile" onClick={() => setTab('brushing')}>
                 <h3>{copy.tabs.brushing}</h3>
                 <p>{copy.home.timerCard}</p>
-              </article>
-              <article className="panel tile">
+              </button>
+              <button className="panel tile action-tile" onClick={() => setTab('teeth')}>
                 <h3>{copy.tabs.teeth}</h3>
                 <p>{copy.home.toothCard}</p>
-              </article>
-              <article className="panel tile">
+              </button>
+              <button className="panel tile action-tile" onClick={() => setTab('ortho')}>
                 <h3>{copy.tabs.ortho}</h3>
                 <p>{copy.home.orthoCard}</p>
-              </article>
-              <article className="panel tile">
+              </button>
+              <button className="panel tile action-tile" onClick={() => setTab('learn')}>
                 <h3>{copy.tabs.learn}</h3>
                 <p>{copy.home.learnCard}</p>
-              </article>
+              </button>
             </section>
           </>
         )}
 
-        {tab === 'brushing' && (
-          <section className="panel wide-panel">
+          {tab === 'brushing' && (
+            <section className="panel wide-panel">
             <div className="section-heading">
               <div>
                 <p className="eyebrow">{copy.tabs.brushing}</p>
@@ -307,11 +312,11 @@ export function App() {
                 </div>
               </div>
             </div>
-          </section>
-        )}
+            </section>
+          )}
 
-        {tab === 'teeth' && (
-          <section className="panel wide-panel">
+          {tab === 'teeth' && (
+            <section className="panel wide-panel">
             <div className="section-heading">
               <div>
                 <p className="eyebrow">{copy.tabs.teeth}</p>
@@ -335,11 +340,11 @@ export function App() {
               })}
             </div>
             <p className="disclaimer">{copy.teeth.hint}</p>
-          </section>
-        )}
+            </section>
+          )}
 
-        {tab === 'ortho' && (
-          <section className="panel wide-panel">
+          {tab === 'ortho' && (
+            <section className="panel wide-panel">
             <div className="section-heading">
               <div>
                 <p className="eyebrow">{copy.tabs.ortho}</p>
@@ -400,11 +405,11 @@ export function App() {
                 </ul>
               </div>
             </div>
-          </section>
-        )}
+            </section>
+          )}
 
-        {tab === 'learn' && (
-          <section className="panel wide-panel">
+          {tab === 'learn' && (
+            <section className="panel wide-panel">
             <div className="section-heading">
               <div>
                 <p className="eyebrow">{copy.tabs.learn}</p>
@@ -422,11 +427,11 @@ export function App() {
                 </article>
               ))}
             </div>
-          </section>
-        )}
+            </section>
+          )}
 
-        {tab === 'parent' && (
-          <section className="panel wide-panel">
+          {tab === 'parent' && (
+            <section className="panel wide-panel">
             <div className="section-heading">
               <div>
                 <p className="eyebrow">{copy.tabs.parent}</p>
@@ -445,7 +450,7 @@ export function App() {
                     </div>
                   ))}
                 </div>
-                <button className="soft-button" onClick={() => setShowProfileForm(true)}>
+                  <button className="soft-button" onClick={() => setShowProfileForm(true)}>
                   {copy.parent.addProfile}
                 </button>
               </div>
@@ -461,44 +466,57 @@ export function App() {
                 {saveMessage ? <p className="save-message">{saveMessage}</p> : null}
               </div>
             </div>
-          </section>
-        )}
-      </main>
+            </section>
+          )}
+        </main>
 
-      {showProfileForm ? (
-        <div className="modal-backdrop" role="presentation" onClick={() => setShowProfileForm(false)}>
-          <div className="modal panel" role="dialog" aria-modal="true" onClick={(event) => event.stopPropagation()}>
-            <h2>{copy.profileForm.title}</h2>
-            <label className="stacked-label">
-              <span>{copy.profileForm.name}</span>
-              <input value={profileName} onChange={(event) => setProfileName(event.target.value)} />
-            </label>
-            <label className="stacked-label">
-              <span>{copy.profileForm.type}</span>
-              <select value={profileType} onChange={(event) => setProfileType(event.target.value as ProfileType)}>
-                <option value="child">{copy.profileForm.child}</option>
-                <option value="teen">{copy.profileForm.teen}</option>
-              </select>
-            </label>
-            <label className="stacked-label">
-              <span>{copy.profileForm.ageGroup}</span>
-              <select value={ageGroup} onChange={(event) => setAgeGroup(event.target.value as ChildAgeGroup)}>
-                <option value="little-kid">{copy.profileForm.littleKid}</option>
-                <option value="big-kid">{copy.profileForm.bigKid}</option>
-                <option value="teen">{copy.profileForm.teenager}</option>
-              </select>
-            </label>
-            <div className="button-row">
-              <button className="primary-button" onClick={createProfile}>
-                {copy.profileForm.save}
-              </button>
-              <button className="soft-button" onClick={() => setShowProfileForm(false)}>
-                {copy.brushing.reset}
-              </button>
+        <nav className="tab-bar mobile-tab-bar" aria-label="Primary">
+          {(Object.keys(copy.tabs) as TabId[]).map((tabId) => (
+            <button
+              key={tabId}
+              className={tab === tabId ? 'active' : ''}
+              onClick={() => setTab(tabId)}
+            >
+              {copy.tabs[tabId]}
+            </button>
+          ))}
+        </nav>
+
+        {showProfileForm ? (
+          <div className="modal-backdrop" role="presentation" onClick={() => setShowProfileForm(false)}>
+            <div className="modal panel" role="dialog" aria-modal="true" onClick={(event) => event.stopPropagation()}>
+              <h2>{copy.profileForm.title}</h2>
+              <label className="stacked-label">
+                <span>{copy.profileForm.name}</span>
+                <input value={profileName} onChange={(event) => setProfileName(event.target.value)} />
+              </label>
+              <label className="stacked-label">
+                <span>{copy.profileForm.type}</span>
+                <select value={profileType} onChange={(event) => setProfileType(event.target.value as ProfileType)}>
+                  <option value="child">{copy.profileForm.child}</option>
+                  <option value="teen">{copy.profileForm.teen}</option>
+                </select>
+              </label>
+              <label className="stacked-label">
+                <span>{copy.profileForm.ageGroup}</span>
+                <select value={ageGroup} onChange={(event) => setAgeGroup(event.target.value as ChildAgeGroup)}>
+                  <option value="little-kid">{copy.profileForm.littleKid}</option>
+                  <option value="big-kid">{copy.profileForm.bigKid}</option>
+                  <option value="teen">{copy.profileForm.teenager}</option>
+                </select>
+              </label>
+              <div className="button-row">
+                <button className="primary-button" onClick={createProfile}>
+                  {copy.profileForm.save}
+                </button>
+                <button className="soft-button" onClick={() => setShowProfileForm(false)}>
+                  Close
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      ) : null}
+        ) : null}
+      </div>
     </div>
   );
 }

@@ -41,6 +41,9 @@ export interface Copy {
   home: {
     welcome: string;
     dailyPlan: string;
+    startHereTitle: string;
+    startHereBody: string;
+    nextSteps: string[];
     timerCard: string;
     toothCard: string;
     orthoCard: string;

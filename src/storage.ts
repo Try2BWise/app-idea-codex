@@ -1,6 +1,6 @@
 import type { LocalState } from './types';
 
-const STORAGE_KEY = 'brightbrush-poc-state';
+const STORAGE_KEY = 'smilesteps-poc-state';
 
 export function loadState(): LocalState | null {
   const raw = window.localStorage.getItem(STORAGE_KEY);

@@ -17,11 +17,11 @@ export const toothLabels = [
 
 export const copyByLanguage: Record<Language, Copy> = {
   en: {
-    appName: 'BrightBrush',
+    appName: 'SmileSteps',
     tagline: 'Healthy smile habits for kids, teens, and parents.',
-    heroTitle: 'A friendly place to practice smile habits',
+    heroTitle: 'Small routines, stronger smiles',
     heroBody:
-      'BrightBrush is a local-first proof of concept for pediatric dental and orthodontic routines. Everything here stays on this device unless you choose otherwise in a future version.',
+      'SmileSteps is a local-first proof of concept for pediatric dental and orthodontic routines. Everything here stays on this device unless you choose otherwise in a future version.',
     createProfile: 'Create profile',
     languageLabel: 'App language',
     parentView: 'Parent view',
@@ -37,6 +37,9 @@ export const copyByLanguage: Record<Language, Copy> = {
     home: {
       welcome: 'Today is a great day to take care of your smile.',
       dailyPlan: 'Pick one small win: brush, log a tooth update, track aligner time, or learn something new.',
+      startHereTitle: 'Start here',
+      startHereBody: 'This demo works best like a mobile app. Pick a profile, choose one quick task, and move through the tabs at the bottom.',
+      nextSteps: ['Brush for 2 minutes.', 'Update a tooth milestone.', 'Track aligner time.', 'Learn one new tool.'],
       timerCard: 'Start a 2-minute brushing session with upbeat coaching.',
       toothCard: 'Track baby teeth, permanent teeth, and fun smile milestones.',
       orthoCard: 'Keep aligner routines steady with simple reminders and progress.',
@@ -147,11 +150,11 @@ export const copyByLanguage: Record<Language, Copy> = {
     },
   },
   es: {
-    appName: 'BrightBrush',
+    appName: 'SmileSteps',
     tagline: 'Habitos saludables para ninos, adolescentes y padres.',
-    heroTitle: 'Un lugar amable para practicar habitos de sonrisa',
+    heroTitle: 'Pequenas rutinas, sonrisas mas fuertes',
     heroBody:
-      'BrightBrush es una prueba de concepto local para rutinas dentales pediatricas y de ortodoncia. Todo se queda en este dispositivo a menos que una version futura cambie eso.',
+      'SmileSteps es una prueba de concepto local para rutinas dentales pediatricas y de ortodoncia. Todo se queda en este dispositivo a menos que una version futura cambie eso.',
     createProfile: 'Crear perfil',
     languageLabel: 'Idioma de la app',
     parentView: 'Vista para padres',
@@ -167,6 +170,9 @@ export const copyByLanguage: Record<Language, Copy> = {
     home: {
       welcome: 'Hoy es un buen dia para cuidar tu sonrisa.',
       dailyPlan: 'Elige un pequeno logro: cepillarte, registrar un cambio dental, contar tiempo con alineadores o aprender algo nuevo.',
+      startHereTitle: 'Empieza aqui',
+      startHereBody: 'Esta demo funciona mejor como una app movil. Elige un perfil, toma una tarea rapida y usa las pestanas de abajo para moverte.',
+      nextSteps: ['Cepillate 2 minutos.', 'Actualiza un diente.', 'Registra tiempo de alineadores.', 'Aprende una herramienta.'],
       timerCard: 'Inicia una sesion de cepillado de 2 minutos con guia positiva.',
       toothCard: 'Lleva un registro de dientes de leche, dientes permanentes y logros.',
       orthoCard: 'Mantén tus rutinas de alineadores con recordatorios simples y progreso visible.',
