@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
@@ -7,6 +8,11 @@ const base = repositoryName ? `/${repositoryName}/` : '/';
 
 export default defineConfig({
   base,
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: [],
+  },
   plugins: [
     react(),
     VitePWA({
