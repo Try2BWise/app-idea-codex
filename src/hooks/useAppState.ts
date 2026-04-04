@@ -3,7 +3,7 @@ import { copyByLanguage } from '../content';
 import { defaultTrayChange, initialState, today } from '../constants';
 import { loadState, saveState } from '../storage';
 import { daysBetween } from '../utils';
-import type { ActivityEntry, ChildAgeGroup, Language, LocalState, Profile, ProfileType, TabId } from '../types';
+import type { ActivityEntry, ChildAgeGroup, Language, LocalState, Profile, ProfileType, TabId, TrackSubTab } from '../types';
 
 export function useAppState() {
   const [state, setState] = useState<LocalState>(() => {
@@ -34,6 +34,7 @@ export function useAppState() {
   const [saveMessage, setSaveMessage] = useState('');
   const [showCompletedTasks, setShowCompletedTasks] = useState(false);
   const [expandedLearnCard, setExpandedLearnCard] = useState<string | null>(null);
+  const [trackSubTab, setTrackSubTab] = useState<TrackSubTab>('teeth');
 
   useEffect(() => {
     saveState(state);
@@ -251,13 +252,16 @@ export function useAppState() {
       },
       {
         id: activeProfile.type === 'teen' ? 'ortho' : 'teeth',
-        title: activeProfile.type === 'teen' ? copy.tabs.ortho : copy.tabs.teeth,
+        title: copy.tabs.track,
         body:
           activeProfile.type === 'teen'
             ? `${alignerProgress}% of today\u2019s aligner goal tracked.`
             : `${activeProfile.teethLost.length} tooth milestones logged so far.`,
         completed: activeProfile.type === 'teen' ? alignerProgress >= 100 : activeProfile.teethLost.length > 0,
-        action: () => setTab(activeProfile.type === 'teen' ? 'ortho' : 'teeth'),
+        action: () => {
+          setTab('track');
+          setTrackSubTab(activeProfile.type === 'teen' ? 'ortho' : 'teeth');
+        },
       },
       {
         id: 'learn',
@@ -274,8 +278,8 @@ export function useAppState() {
   function jumpFromStep(step: string) {
     const lower = step.toLowerCase();
     if (lower.includes('brush') || lower.includes('cepill')) setTab('brushing');
-    else if (lower.includes('tooth') || lower.includes('diente')) setTab('teeth');
-    else if (lower.includes('aligner') || lower.includes('alineador')) setTab('ortho');
+    else if (lower.includes('tooth') || lower.includes('diente')) { setTab('track'); setTrackSubTab('teeth'); }
+    else if (lower.includes('aligner') || lower.includes('alineador')) { setTab('track'); setTrackSubTab('ortho'); }
     else if (lower.includes('learn') || lower.includes('aprende')) setTab('learn');
   }
 
@@ -325,6 +329,8 @@ export function useAppState() {
     setShowCompletedTasks,
     expandedLearnCard,
     setExpandedLearnCard,
+    trackSubTab,
+    setTrackSubTab,
 
     // Derived values
     alignerProgress,

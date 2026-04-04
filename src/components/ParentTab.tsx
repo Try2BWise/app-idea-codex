@@ -7,66 +7,85 @@ export function ParentTab({ activeProfile, copy, state, saveMessage, saveNotes, 
   if (!activeProfile) return null;
 
   return (
-    <section className={`panel wide-panel character-panel ${crew.parent.accent}`}>
-      <div className="section-heading">
-        <div>
-          <p className="eyebrow">{crew.parent.name}</p>
-          <h2>{copy.parent.title}</h2>
-        </div>
-        <p>{copy.parent.body}</p>
+    <div className="ios-page">
+      <div className="ios-nav-bar">
+        <h1 className="ios-large-title">{copy.parent.title}</h1>
+        <p className="ios-nav-subtitle">{crew.parent.name}</p>
       </div>
 
-      <div className="parent-grid">
-        <div className="panel inset-panel">
-          <div className="parent-stat-strip">
-            <div className="parent-stat">
-              <strong>{state.profiles.length}</strong>
-              <span>profiles</span>
-            </div>
-            <div className="parent-stat">
-              <strong>{state.profiles.filter((profile) => profile.lastBrushedOn === today).length}</strong>
-              <span>brushed today</span>
-            </div>
-          </div>
-          <strong>{copy.parent.profilesTitle}</strong>
-          <div className="profile-list">
-            {state.profiles.map((profile) => (
-              <div key={profile.id} className="profile-row">
-                <div className="profile-row-copy">
-                  <span>{profile.name}</span>
-                  <small>{profile.type === 'teen' ? 'Teen profile' : 'Child profile'}</small>
+      {/* Stats */}
+      <div className="ios-stat-strip">
+        <div className="ios-stat-card">
+          <span className="ios-stat-value">{state.profiles.length}</span>
+          <span className="ios-stat-label">profiles</span>
+        </div>
+        <div className="ios-stat-card">
+          <span className="ios-stat-value">{state.profiles.filter((p) => p.lastBrushedOn === today).length}</span>
+          <span className="ios-stat-label">brushed today</span>
+        </div>
+      </div>
+
+      {/* Profiles */}
+      <div className="ios-section-group">
+        <div className="ios-section-header">
+          <span>{copy.parent.profilesTitle}</span>
+        </div>
+        <div className="ios-card">
+          {state.profiles.map((profile, i) => (
+            <div key={profile.id}>
+              {i > 0 && <div className="ios-separator" />}
+              <div className="ios-cell">
+                <div>
+                  <span className="ios-cell-label">{profile.name}</span>
+                  <span className="ios-cell-detail">{profile.type === 'teen' ? 'Teen profile' : 'Child profile'}</span>
                 </div>
-                <strong>{profile.streak}d</strong>
+                <span className="ios-cell-value">{profile.streak}d</span>
               </div>
-            ))}
-          </div>
-          <button className="soft-button" onClick={() => setShowProfileForm(true)}>
-            {copy.parent.addProfile}
+            </div>
+          ))}
+          <div className="ios-separator" />
+          <button className="ios-cell ios-cell-tappable ios-cell-action" onClick={() => setShowProfileForm(true)}>
+            <span className="ios-tint">{copy.parent.addProfile}</span>
           </button>
         </div>
+      </div>
 
-        <div className="panel inset-panel">
-          <div className="parent-reminders">
-            <div className="reminder-card">
-              <strong>Quick reminder</strong>
-              <p>Kids often still need brushing help into early elementary years.</p>
-            </div>
-            <div className="reminder-card">
-              <strong>First visit</strong>
-              <p>Plan a dental visit by the first tooth or first birthday.</p>
+      {/* Reminders */}
+      <div className="ios-section-group">
+        <div className="ios-section-header"><span>Reminders</span></div>
+        <div className="ios-card">
+          <div className="ios-cell">
+            <div>
+              <span className="ios-cell-label">Quick reminder</span>
+              <span className="ios-cell-detail">Kids often still need brushing help into early elementary years.</span>
             </div>
           </div>
-          <label className="stacked-label">
-            <span>{copy.parent.notesLabel}</span>
-            <textarea
-              rows={6}
-              defaultValue={activeProfile.notes}
-              onBlur={(event) => saveNotes(event.target.value)}
-            />
-          </label>
-          {saveMessage ? <p className="save-message">{saveMessage}</p> : null}
+          <div className="ios-separator" />
+          <div className="ios-cell">
+            <div>
+              <span className="ios-cell-label">First visit</span>
+              <span className="ios-cell-detail">Plan a dental visit by the first tooth or first birthday.</span>
+            </div>
+          </div>
         </div>
       </div>
-    </section>
+
+      {/* Notes */}
+      <div className="ios-section-group">
+        <div className="ios-section-header">
+          <span>{copy.parent.notesLabel}</span>
+        </div>
+        <div className="ios-card">
+          <textarea
+            className="ios-textarea"
+            rows={5}
+            defaultValue={activeProfile.notes}
+            onBlur={(event) => saveNotes(event.target.value)}
+            placeholder="Add family notes..."
+          />
+        </div>
+        {saveMessage ? <div className="ios-section-footer">{saveMessage}</div> : null}
+      </div>
+    </div>
   );
 }

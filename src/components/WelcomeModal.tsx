@@ -4,21 +4,29 @@ type Props = Pick<AppState, 'copy' | 'setShowWelcome' | 'setState'>;
 
 export function WelcomeModal({ copy, setShowWelcome, setState }: Props) {
   return (
-    <div className="modal-backdrop" role="presentation">
-      <div className="modal panel onboarding-modal" role="dialog" aria-modal="true">
-        <p className="eyebrow">{copy.appName}</p>
-        <h2>{copy.home.onboardingTitle}</h2>
-        <p>{copy.home.onboardingBody}</p>
-        <div className="onboarding-points">
-          {copy.home.onboardingPoints.map((point) => (
-            <div key={point} className="onboarding-point">
-              {point}
+    <div className="ios-sheet-backdrop">
+      <div className="ios-sheet ios-sheet-welcome">
+        <div className="ios-sheet-handle" />
+        <div className="ios-sheet-body ios-sheet-body-centered">
+          <p className="ios-overline">{copy.appName}</p>
+          <h2 className="ios-sheet-title-large">{copy.home.onboardingTitle}</h2>
+          <p className="ios-muted">{copy.home.onboardingBody}</p>
+
+          <div className="ios-section-group">
+            <div className="ios-card">
+              {copy.home.onboardingPoints.map((point, i) => (
+                <div key={point}>
+                  {i > 0 && <div className="ios-separator" />}
+                  <div className="ios-cell">
+                    <span className="ios-cell-label">{point}</span>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        <div className="button-row">
+          </div>
+
           <button
-            className="primary-button"
+            className="ios-button-primary ios-button-lg ios-button-full"
             onClick={() => {
               setShowWelcome(false);
               setState((current) => ({ ...current, hasSeenWelcome: true }));

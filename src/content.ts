@@ -31,8 +31,7 @@ export const copyByLanguage: Record<Language, Copy> = {
     tabs: {
       home: 'Home',
       brushing: 'Brush',
-      teeth: 'Teeth',
-      ortho: 'Ortho',
+      track: 'Track',
       learn: 'Learn',
       parent: 'Parent',
     },
@@ -255,8 +254,7 @@ export const copyByLanguage: Record<Language, Copy> = {
     tabs: {
       home: 'Inicio',
       brushing: 'Cepillar',
-      teeth: 'Dientes',
-      ortho: 'Orto',
+      track: 'Seguir',
       learn: 'Aprender',
       parent: 'Padres',
     },

@@ -79,19 +79,12 @@ export const crew: Record<TabId, { name: string; title: string; vibe: string; ac
     accent: 'crew-captain',
     badge: 'CB',
   },
-  teeth: {
-    name: 'Marshal Floss',
-    title: 'Trail tracker',
-    vibe: 'Keeps track of milestones and helps families notice smile changes over time.',
+  track: {
+    name: 'Marshal Floss & Timer T-Pop',
+    title: 'Progress tracker',
+    vibe: 'Tracks teeth milestones and aligner routines.',
     accent: 'crew-marshal',
-    badge: 'MF',
-  },
-  ortho: {
-    name: 'Timer T-Pop',
-    title: 'Rhythm guide',
-    vibe: 'Handles timing, progress, and "stay on track" energy for aligner routines.',
-    accent: 'crew-timer',
-    badge: 'TP',
+    badge: 'TR',
   },
   learn: {
     name: '8-Bit Paste Pals',
