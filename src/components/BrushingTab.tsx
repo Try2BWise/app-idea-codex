@@ -1,4 +1,4 @@
-import { brushingRewards, captainBrushAssets, crew } from '../constants';
+import { brushingRewards, crew } from '../constants';
 import type { AppState } from '../hooks/useAppState';
 
 type Props = Pick<
@@ -44,16 +44,10 @@ export function BrushingTab({
         <p className="ios-nav-subtitle">{crew.brushing.name}</p>
       </div>
 
-      {/* Captain Brush coach card */}
+      {/* Coach status card */}
       <div className="ios-card ios-card-flush">
         <div className={`ios-coach-card captain-${captainMode}`}>
-          <div className="ios-coach-art">
-            <img
-              className="ios-coach-img"
-              src={secondsLeft === 0 ? captainBrushAssets.win : captainBrushAssets.coach}
-              alt="Captain Brush"
-            />
-          </div>
+          <div className="ios-cell-icon ios-cell-icon-lg">{crew.brushing.badge}</div>
           <div className="ios-coach-copy">
             <div className="ios-coach-headline">
               <strong>{crew.brushing.title}</strong>

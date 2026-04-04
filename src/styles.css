@@ -404,12 +404,11 @@ button {
   flex-shrink: 0;
 }
 
-.ios-cell-icon-img {
-  width: 36px;
-  height: 36px;
-  object-fit: contain;
-  border-radius: 8px;
-  flex-shrink: 0;
+.ios-cell-icon-lg {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  font-size: 0.9rem;
 }
 
 .ios-separator {
@@ -594,19 +593,6 @@ button {
   overflow: hidden;
 }
 
-.ios-hero-layout {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 12px;
-  align-items: center;
-}
-
-.ios-hero-copy {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
 .ios-hero-bubble {
   display: flex;
   flex-direction: column;
@@ -625,11 +611,6 @@ button {
   line-height: 1.33;
 }
 
-.ios-hero-art {
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
-}
 
 /* ============================================
    Pills / Badges
@@ -713,17 +694,6 @@ button {
   gap: 12px;
   align-items: center;
   padding: 12px;
-}
-
-.ios-coach-art {
-  display: grid;
-  place-items: center;
-}
-
-.ios-coach-img {
-  width: 72px;
-  height: 72px;
-  object-fit: contain;
 }
 
 .ios-coach-copy {
@@ -949,18 +919,8 @@ button {
 }
 
 /* ============================================
-   Learn Art
+   Learn
    ============================================ */
-
-.ios-learn-art {
-  width: 44px;
-  height: 44px;
-  object-fit: contain;
-  border-radius: 10px;
-  background: var(--ios-grouped-bg);
-  padding: 4px;
-  flex-shrink: 0;
-}
 
 /* ============================================
    Form Inputs
@@ -1108,11 +1068,6 @@ button {
     font-size: 28px;
   }
 
-  .ios-hero-art {
-    width: 64px;
-    height: 64px;
-  }
-
   .teeth-arch {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -1125,7 +1080,4 @@ button {
     grid-template-columns: 1fr;
   }
 
-  .ios-coach-art {
-    justify-self: start;
-  }
 }

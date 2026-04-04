@@ -1,4 +1,4 @@
-import { captainBrushAssets, crew } from '../constants';
+import { crew } from '../constants';
 import type { AppState } from '../hooks/useAppState';
 
 type Props = Pick<
@@ -43,19 +43,14 @@ export function HomeTab({
 
       {/* Captain Brush hero card */}
       <div className="ios-hero-card">
-        <div className="ios-hero-layout">
-          <div className="ios-hero-copy">
-            <div className="ios-hero-bubble">
-              <strong>Captain Brush</strong>
-              <p>{captainHomeLine}</p>
-            </div>
-            <div className="ios-pill-row">
-              {captainMissionPills.map((pill) => (
-                <span key={pill} className="ios-pill">{pill}</span>
-              ))}
-            </div>
-          </div>
-          <img className="ios-hero-art" src={captainBrushAssets.hero} alt="Captain Brush" />
+        <div className="ios-hero-bubble">
+          <strong>Captain Brush</strong>
+          <p>{captainHomeLine}</p>
+        </div>
+        <div className="ios-pill-row">
+          {captainMissionPills.map((pill) => (
+            <span key={pill} className="ios-pill">{pill}</span>
+          ))}
         </div>
       </div>
 
@@ -145,19 +140,15 @@ export function HomeTab({
         <div className="ios-card">
           {([
             { id: 'brushing' as const, ...crew.brushing, action: () => setTab('brushing') },
-            { id: 'track-teeth' as const, ...crew.track, label: 'Teeth', action: () => { setTab('track'); setTrackSubTab('teeth'); } },
-            { id: 'track-ortho' as const, label: 'Ortho', name: 'Timer T-Pop', title: 'Rhythm guide', accent: 'crew-timer', badge: 'TP', vibe: '', action: () => { setTab('track'); setTrackSubTab('ortho'); } },
+            { id: 'track-teeth' as const, ...crew.track, action: () => { setTab('track'); setTrackSubTab('teeth'); } },
+            { id: 'track-ortho' as const, name: 'Timer T-Pop', title: 'Rhythm guide', accent: 'crew-timer', badge: 'TP', vibe: '', action: () => { setTab('track'); setTrackSubTab('ortho'); } },
             { id: 'learn' as const, ...crew.learn, action: () => setTab('learn') },
           ]).map((member, i) => (
             <div key={member.id}>
               {i > 0 && <div className="ios-separator" />}
               <button className="ios-cell ios-cell-tappable" onClick={member.action}>
                 <div className="ios-cell-icon-row">
-                  {member.id === 'brushing' ? (
-                    <img className="ios-cell-icon-img" src={captainBrushAssets.hero} alt="" />
-                  ) : (
-                    <div className="ios-cell-icon">{member.badge}</div>
-                  )}
+                  <div className="ios-cell-icon">{member.badge}</div>
                   <div>
                     <span className="ios-cell-label">{member.name}</span>
                     <span className="ios-cell-detail">{member.title}</span>

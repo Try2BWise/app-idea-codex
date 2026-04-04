@@ -31,17 +31,14 @@ export function LearnTab({ activeProfile, copy, learnSections, expandedLearnCard
                     className="ios-cell ios-cell-tappable"
                     onClick={() => setExpandedLearnCard((c) => c === cardKey ? null : cardKey)}
                   >
-                    <div className="ios-cell-icon-row">
-                      <img className="ios-learn-art" src={card.art} alt="" />
-                      <div>
-                        <span className="ios-cell-overline">{card.tag}</span>
-                        <span className="ios-cell-label">{card.title}</span>
-                        {isExpanded ? (
-                          <span className="ios-cell-detail">{card.body}</span>
-                        ) : (
-                          <span className="ios-cell-detail ios-line-clamp">{card.body}</span>
-                        )}
-                      </div>
+                    <div>
+                      <span className="ios-cell-overline">{card.tag}</span>
+                      <span className="ios-cell-label">{card.title}</span>
+                      {isExpanded ? (
+                        <span className="ios-cell-detail">{card.body}</span>
+                      ) : (
+                        <span className="ios-cell-detail ios-line-clamp">{card.body}</span>
+                      )}
                     </div>
                   </button>
                 </div>

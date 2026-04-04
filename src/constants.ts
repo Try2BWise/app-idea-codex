@@ -102,12 +102,4 @@ export const crew: Record<TabId, { name: string; title: string; vibe: string; ac
   },
 };
 
-const assetBase = import.meta.env.BASE_URL;
-
-export const captainBrushAssets = {
-  hero: `${assetBase}characters/captain-brush-hero.png`,
-  coach: `${assetBase}characters/captain-brush-coach.png`,
-  win: `${assetBase}characters/captain-brush-win.png`,
-} as const;
-
 export const brushingRewards = ['Champion', 'Superstar', 'Sparkly finish'];

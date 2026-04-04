@@ -122,7 +122,7 @@ export interface Copy {
       title: string;
       body: string;
       ageGroups: ChildAgeGroup[];
-      cards: { title: string; body: string; tag: string; art: string }[];
+      cards: { title: string; body: string; tag: string }[];
     }[];
   };
   parent: {
