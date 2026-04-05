@@ -12,7 +12,7 @@ import { WelcomeModal } from './components/WelcomeModal';
 
 const tabIcons: Record<TabId, string> = {
   home: '\uD83C\uDFE0',     // 🏠
-  brushing: '\uD83E\uDEB9', // 🪥
+  brushing: '\u2728',       // ✨
   track: '\uD83E\uDDB7',    // 🦷
   learn: '\uD83D\uDCA1',    // 💡
   parent: '\u2699\uFE0F',   // ⚙️

@@ -38,7 +38,7 @@ export const copyByLanguage: Record<Language, Copy> = {
       dailyPlan: 'Pick one small win: brush, log a tooth update, track aligner time, or learn something new.',
       startHereTitle: 'Start here',
       startHereBody: 'This demo works best like a mobile app. Pick a profile, choose one quick task, and move through the tabs at the bottom.',
-      nextSteps: ['\uD83E\uDEB9 Brush for 2 minutes', '\uD83E\uDDB7 Update a tooth milestone', '\u23F1\uFE0F Track aligner time', '\uD83D\uDCA1 Learn one new tool'],
+      nextSteps: ['\u2728 Brush for 2 minutes', '\uD83E\uDDB7 Update a tooth milestone', '\u23F1\uFE0F Track aligner time', '\uD83D\uDCA1 Learn one new tool'],
       onboardingTitle: 'Welcome to SmileSteps',
       onboardingBody: 'This is a calm, kid-friendly place for brushing habits, tooth milestones, and orthodontic routines.',
       onboardingPoints: [
@@ -250,7 +250,7 @@ export const copyByLanguage: Record<Language, Copy> = {
       dailyPlan: 'Elige un pequeno logro: cepillarte, registrar un cambio dental, contar tiempo con alineadores o aprender algo nuevo.',
       startHereTitle: 'Empieza aqui',
       startHereBody: 'Esta demo funciona mejor como una app movil. Elige un perfil, toma una tarea rapida y usa las pestanas de abajo para moverte.',
-      nextSteps: ['\uD83E\uDEB9 Cepillate 2 minutos', '\uD83E\uDDB7 Actualiza un diente', '\u23F1\uFE0F Registra tiempo de alineadores', '\uD83D\uDCA1 Aprende una herramienta'],
+      nextSteps: ['\u2728 Cepillate 2 minutos', '\uD83E\uDDB7 Actualiza un diente', '\u23F1\uFE0F Registra tiempo de alineadores', '\uD83D\uDCA1 Aprende una herramienta'],
       onboardingTitle: 'Bienvenido a SmileSteps',
       onboardingBody: 'Este es un lugar tranquilo y amigable para habitos de cepillado, cambios dentales y rutinas de ortodoncia.',
       onboardingPoints: [

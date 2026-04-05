@@ -21,7 +21,7 @@ export function ParentTab({ activeProfile, copy, state, saveMessage, saveNotes, 
         </div>
         <div className="ios-stat-card">
           <span className="ios-stat-value">{state.profiles.filter((p) => p.lastBrushedOn === today).length}</span>
-          <span className="ios-stat-label">{'\uD83E\uDEB9'} brushed today</span>
+          <span className="ios-stat-label">{'\u2728'} brushed today</span>
         </div>
       </div>
 

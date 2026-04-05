@@ -70,7 +70,7 @@ export function HomeTab({
       {/* Quick actions */}
       <div className="ios-action-row">
         <button className="ios-button-primary" onClick={() => setTab('brushing')}>
-          {'\uD83E\uDEB9'} {copy.tabs.brushing}
+          {'\u2728'} {copy.tabs.brushing}
         </button>
         <button className="ios-button-secondary" onClick={() => setTab('learn')}>
           {'\uD83D\uDCA1'} {copy.tabs.learn}
@@ -136,7 +136,7 @@ export function HomeTab({
         </div>
         <div className="ios-card">
           {([
-            { id: 'brushing' as const, icon: '\uD83E\uDEB9', ...crew.brushing, action: () => setTab('brushing') },
+            { id: 'brushing' as const, icon: '\u2728', ...crew.brushing, action: () => setTab('brushing') },
             { id: 'track-teeth' as const, icon: '\uD83E\uDDB7', ...crew.track, action: () => { setTab('track'); setTrackSubTab('teeth'); } },
             { id: 'track-ortho' as const, icon: '\u23F1\uFE0F', name: 'Aligner Tracker', title: 'Ortho routines', accent: 'crew-track', badge: 'AT', vibe: '', action: () => { setTab('track'); setTrackSubTab('ortho'); } },
             { id: 'learn' as const, icon: '\uD83D\uDCA1', ...crew.learn, action: () => setTab('learn') },
