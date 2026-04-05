@@ -4,25 +4,25 @@
    ============================================ */
 
 :root {
-  /* iOS system colors */
-  --ios-tint: #007AFF;
+  /* Minty Fresh — dental-inspired palette */
+  --ios-tint: #2AABB3;
+  --ios-tint-dark: #1E8A91;
   --ios-red: #FF3B30;
   --ios-green: #34C759;
   --ios-orange: #FF9500;
-  --ios-label: #000000;
-  --ios-secondary-label: #3C3C43;
-  --ios-tertiary-label: #3C3C4399;
-  --ios-separator: rgba(60, 60, 67, 0.12);
-  --ios-grouped-bg: #F2F2F7;
+  --ios-label: #1A2B3C;
+  --ios-secondary-label: #5B7282;
+  --ios-tertiary-label: rgba(91, 114, 130, 0.72);
+  --ios-separator: rgba(26, 43, 60, 0.10);
+  --ios-grouped-bg: #F4FAFB;
   --ios-card-bg: #FFFFFF;
-  --ios-nav-bg: rgba(249, 249, 249, 0.94);
-  --ios-tab-bg: rgba(249, 249, 249, 0.94);
+  --ios-nav-bg: rgba(244, 250, 251, 0.94);
+  --ios-tab-bg: rgba(244, 250, 251, 0.94);
 
-  /* Brand accent (used sparingly) */
-  --brand-orange: #FF8552;
-  --brand-warm: #FF6F61;
-  --brand-gold: #FFB84D;
-  --brand-blue: #5EC2FF;
+  /* Brand accents */
+  --brand-warm: #FF8A65;
+  --brand-gold: #FFD54F;
+  --brand-mint-light: #E0F5F5;
 
   /* iOS spacing */
   --ios-margin: 16px;
@@ -81,7 +81,7 @@ button {
 
 @media (min-width: 429px) {
   body {
-    background: #E5E5EA;
+    background: #E8F0F1;
   }
   .ios-app {
     min-height: 100vh;
@@ -334,7 +334,7 @@ button {
 }
 
 .ios-cell-selected {
-  background: rgba(0, 122, 255, 0.04);
+  background: rgba(42, 171, 179, 0.06);
 }
 
 .ios-cell-action {
@@ -366,7 +366,7 @@ button {
   display: block;
   font-size: 11px;
   font-weight: 600;
-  color: var(--brand-orange);
+  color: var(--brand-warm);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   margin-bottom: 2px;
@@ -400,7 +400,7 @@ button {
   font-weight: 700;
   font-size: 0.72rem;
   color: white;
-  background: linear-gradient(135deg, var(--ios-tint), var(--brand-blue));
+  background: linear-gradient(135deg, var(--ios-tint), var(--ios-tint-dark));
   flex-shrink: 0;
 }
 
@@ -460,7 +460,7 @@ button {
   margin: 0;
   font-size: 13px;
   font-weight: 600;
-  color: var(--brand-orange);
+  color: var(--brand-warm);
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
@@ -505,7 +505,7 @@ button {
   padding: 12px 24px;
   border-radius: 12px;
   border: 0;
-  background: rgba(0, 122, 255, 0.12);
+  background: rgba(42, 171, 179, 0.14);
   color: var(--ios-tint);
   font-size: 17px;
   font-weight: 600;
@@ -639,7 +639,7 @@ button {
 }
 
 .ios-pill-earned {
-  background: linear-gradient(135deg, var(--brand-gold), var(--brand-orange));
+  background: linear-gradient(135deg, var(--brand-gold), var(--brand-warm));
   color: white;
 }
 
@@ -714,11 +714,11 @@ button {
 }
 
 .captain-active {
-  background: linear-gradient(135deg, rgba(255, 149, 0, 0.06), rgba(255, 59, 48, 0.04));
+  background: linear-gradient(135deg, rgba(42, 171, 179, 0.08), rgba(255, 138, 101, 0.06));
 }
 
 .captain-victory {
-  background: linear-gradient(135deg, rgba(52, 199, 89, 0.06), rgba(255, 184, 77, 0.06));
+  background: linear-gradient(135deg, rgba(42, 171, 179, 0.10), rgba(255, 213, 79, 0.08));
 }
 
 /* ============================================
@@ -786,8 +786,8 @@ button {
 }
 
 .ios-quadrant.done {
-  background: rgba(52, 199, 89, 0.12);
-  color: var(--ios-green);
+  background: var(--brand-mint-light);
+  color: var(--ios-tint-dark);
 }
 
 /* ============================================
