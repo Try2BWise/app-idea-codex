@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
@@ -7,6 +8,11 @@ const base = repositoryName ? `/${repositoryName}/` : '/';
 
 export default defineConfig({
   base,
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: [],
+  },
   plugins: [
     react(),
     VitePWA({
@@ -16,8 +22,8 @@ export default defineConfig({
         name: 'SmileSteps POC',
         short_name: 'SmileSteps',
         description: 'A kid-friendly pediatric and orthodontic engagement PWA proof of concept.',
-        theme_color: '#ff8552',
-        background_color: '#fff9f1',
+        theme_color: '#2AABB3',
+        background_color: '#F4FAFB',
         display: 'standalone',
         start_url: '/',
         icons: [

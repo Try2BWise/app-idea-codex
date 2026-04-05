@@ -4,7 +4,9 @@ export type ChildAgeGroup = 'little-kid' | 'big-kid' | 'teen';
 
 export type ProfileType = 'child' | 'teen';
 
-export type TabId = 'home' | 'brushing' | 'teeth' | 'ortho' | 'learn' | 'parent';
+export type TabId = 'home' | 'brushing' | 'track' | 'learn' | 'parent';
+
+export type TrackSubTab = 'teeth' | 'ortho';
 
 export interface ActivityEntry {
   id: string;
@@ -120,7 +122,7 @@ export interface Copy {
       title: string;
       body: string;
       ageGroups: ChildAgeGroup[];
-      cards: { title: string; body: string; tag: string; art: string }[];
+      cards: { title: string; body: string; tag: string }[];
     }[];
   };
   parent: {
