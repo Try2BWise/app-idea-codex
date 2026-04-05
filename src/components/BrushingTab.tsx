@@ -1,4 +1,4 @@
-import { brushingRewards, crew } from '../constants';
+import { brushingRewards } from '../constants';
 import type { AppState } from '../hooks/useAppState';
 
 type Props = Pick<
@@ -13,7 +13,6 @@ type Props = Pick<
   | 'encouragement'
   | 'activeQuadrantIndex'
   | 'brushingProgress'
-  | 'coachMode'
   | 'coachHeadline'
   | 'coachSubline'
   | 'coachStatusPills'
@@ -30,7 +29,6 @@ export function BrushingTab({
   encouragement,
   activeQuadrantIndex,
   brushingProgress,
-  coachMode,
   coachHeadline,
   coachSubline,
   coachStatusPills,
@@ -41,27 +39,9 @@ export function BrushingTab({
     <div className="ios-page">
       <div className="ios-nav-bar">
         <h1 className="ios-large-title">{copy.brushing.title}</h1>
-        <p className="ios-nav-subtitle">{crew.brushing.name}</p>
       </div>
 
-      {/* Coach status card */}
-      <div className="ios-card ios-card-flush">
-        <div className={`ios-coach-card coach-${coachMode}`}>
-          <div className="ios-coach-copy">
-            <div className="ios-coach-headline">
-              <span className="ios-badge">{coachHeadline}</span>
-            </div>
-            <p className="ios-muted">{coachSubline}</p>
-            <div className="ios-pill-row">
-              {coachStatusPills.map((pill) => (
-                <span key={pill} className="ios-pill ios-pill-small">{pill}</span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Timer ring */}
+      {/* Timer ring — always visible above the fold */}
       <div className="ios-timer-section">
         <div className="progress-ring" style={{ ['--progress' as string]: `${brushingProgress}%` }}>
           <div className="progress-ring-inner">
@@ -84,7 +64,27 @@ export function BrushingTab({
         </div>
       </div>
 
-      {/* Encouragement & controls */}
+      {/* Primary action — immediately below timer */}
+      <div className="ios-action-row">
+        <button
+          className="ios-button-primary ios-button-lg"
+          onClick={() => setIsRunning((current) => !current)}
+          disabled={secondsLeft === 0}
+        >
+          {isRunning ? copy.brushing.pause : secondsLeft === 120 ? copy.brushing.start : copy.brushing.resume}
+        </button>
+        <button
+          className="ios-button-secondary"
+          onClick={() => {
+            setIsRunning(false);
+            setSecondsLeft(120);
+          }}
+        >
+          {copy.brushing.reset}
+        </button>
+      </div>
+
+      {/* Encouragement + rewards */}
       <div className="ios-section-group">
         <div className="ios-card">
           <div className="ios-cell">
@@ -101,24 +101,20 @@ export function BrushingTab({
             </span>
           ))}
         </div>
+      </div>
 
-        <div className="ios-action-row">
-          <button
-            className="ios-button-primary ios-button-lg"
-            onClick={() => setIsRunning((current) => !current)}
-            disabled={secondsLeft === 0}
-          >
-            {isRunning ? copy.brushing.pause : secondsLeft === 120 ? copy.brushing.start : copy.brushing.resume}
-          </button>
-          <button
-            className="ios-button-secondary"
-            onClick={() => {
-              setIsRunning(false);
-              setSecondsLeft(120);
-            }}
-          >
-            {copy.brushing.reset}
-          </button>
+      {/* Coach details — below the fold is fine */}
+      <div className="ios-section-group">
+        <div className="ios-section-header"><span>{coachHeadline}</span></div>
+        <div className="ios-card">
+          <div className="ios-cell">
+            <span className="ios-cell-detail">{coachSubline}</span>
+          </div>
+        </div>
+        <div className="ios-reward-strip">
+          {coachStatusPills.map((pill) => (
+            <span key={pill} className="ios-pill ios-pill-small">{pill}</span>
+          ))}
         </div>
       </div>
     </div>

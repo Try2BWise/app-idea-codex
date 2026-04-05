@@ -70,7 +70,7 @@ export function HomeTab({
       {/* Quick actions */}
       <div className="ios-action-row">
         <button className="ios-button-primary" onClick={() => setTab('brushing')}>
-          {copy.brushing.start}
+          {copy.tabs.brushing}
         </button>
         <button className="ios-button-secondary" onClick={() => setTab('learn')}>
           {copy.tabs.learn}
