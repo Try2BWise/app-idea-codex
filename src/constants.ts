@@ -102,4 +102,4 @@ export const crew: Record<TabId, { name: string; title: string; vibe: string; ac
   },
 };
 
-export const brushingRewards = ['Champion', 'Superstar', 'Sparkly finish'];
+export const brushingRewards = ['\uD83C\uDFC6 Champion', '\u2B50 Superstar', '\u2728 Sparkly finish'];

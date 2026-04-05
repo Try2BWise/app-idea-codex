@@ -11,11 +11,11 @@ import { ProfileFormModal } from './components/ProfileFormModal';
 import { WelcomeModal } from './components/WelcomeModal';
 
 const tabIcons: Record<TabId, string> = {
-  home: '\u2302',      // house
-  brushing: '\u2728',  // sparkles
-  track: '\u2665',     // heart (tooth/health)
-  learn: '\u2606',     // star
-  parent: '\u2699',    // gear
+  home: '\uD83C\uDFE0',     // 🏠
+  brushing: '\uD83E\uDEB9', // 🪥
+  track: '\uD83E\uDDB7',    // 🦷
+  learn: '\uD83D\uDCA1',    // 💡
+  parent: '\u2699\uFE0F',   // ⚙️
 };
 
 export function App() {

@@ -17,11 +17,11 @@ export function ParentTab({ activeProfile, copy, state, saveMessage, saveNotes, 
       <div className="ios-stat-strip">
         <div className="ios-stat-card">
           <span className="ios-stat-value">{state.profiles.length}</span>
-          <span className="ios-stat-label">profiles</span>
+          <span className="ios-stat-label">{'\uD83D\uDC64'} profiles</span>
         </div>
         <div className="ios-stat-card">
           <span className="ios-stat-value">{state.profiles.filter((p) => p.lastBrushedOn === today).length}</span>
-          <span className="ios-stat-label">brushed today</span>
+          <span className="ios-stat-label">{'\uD83E\uDEB9'} brushed today</span>
         </div>
       </div>
 
@@ -39,7 +39,7 @@ export function ParentTab({ activeProfile, copy, state, saveMessage, saveNotes, 
                   <span className="ios-cell-label">{profile.name}</span>
                   <span className="ios-cell-detail">{profile.type === 'teen' ? 'Teen profile' : 'Child profile'}</span>
                 </div>
-                <span className="ios-cell-value">{profile.streak}d</span>
+                <span className="ios-cell-value">{'\uD83D\uDD25'} {profile.streak}d</span>
               </div>
             </div>
           ))}
@@ -52,18 +52,18 @@ export function ParentTab({ activeProfile, copy, state, saveMessage, saveNotes, 
 
       {/* Reminders */}
       <div className="ios-section-group">
-        <div className="ios-section-header"><span>Reminders</span></div>
+        <div className="ios-section-header"><span>{'\uD83D\uDCE2'} Reminders</span></div>
         <div className="ios-card">
           <div className="ios-cell">
             <div>
-              <span className="ios-cell-label">Quick reminder</span>
+              <span className="ios-cell-label">{'\uD83D\uDCA1'} Quick reminder</span>
               <span className="ios-cell-detail">Kids often still need brushing help into early elementary years.</span>
             </div>
           </div>
           <div className="ios-separator" />
           <div className="ios-cell">
             <div>
-              <span className="ios-cell-label">First visit</span>
+              <span className="ios-cell-label">{'\uD83D\uDCC5'} First visit</span>
               <span className="ios-cell-detail">Plan a dental visit by the first tooth or first birthday.</span>
             </div>
           </div>

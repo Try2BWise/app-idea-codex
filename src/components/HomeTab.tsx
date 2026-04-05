@@ -55,32 +55,32 @@ export function HomeTab({
       <div className="ios-stat-strip">
         <div className="ios-stat-card">
           <span className="ios-stat-value">{activeProfile.streak}</span>
-          <span className="ios-stat-label">day streak</span>
+          <span className="ios-stat-label">{'\uD83D\uDD25'} streak</span>
         </div>
         <div className="ios-stat-card">
           <span className="ios-stat-value">{activeProfile.teethLost.length}</span>
-          <span className="ios-stat-label">teeth notes</span>
+          <span className="ios-stat-label">{'\uD83E\uDDB7'} teeth</span>
         </div>
         <div className="ios-stat-card">
           <span className="ios-stat-value">{activeProfile.alignerHoursToday}</span>
-          <span className="ios-stat-label">ortho hours</span>
+          <span className="ios-stat-label">{'\u23F1\uFE0F'} ortho</span>
         </div>
       </div>
 
       {/* Quick actions */}
       <div className="ios-action-row">
         <button className="ios-button-primary" onClick={() => setTab('brushing')}>
-          {copy.tabs.brushing}
+          {'\uD83E\uDEB9'} {copy.tabs.brushing}
         </button>
         <button className="ios-button-secondary" onClick={() => setTab('learn')}>
-          {copy.tabs.learn}
+          {'\uD83D\uDCA1'} {copy.tabs.learn}
         </button>
       </div>
 
       {/* Daily tasks */}
       <div className="ios-section-group">
         <div className="ios-section-header">
-          <span>{copy.home.tasksTitle}</span>
+          <span>{'\u2705'} {copy.home.tasksTitle}</span>
           <button className="ios-link" onClick={() => setShowCompletedTasks((c) => !c)}>
             {showCompletedTasks ? 'Hide done' : 'Show all'}
           </button>
@@ -103,7 +103,7 @@ export function HomeTab({
           )) : (
             <div className="ios-cell">
               <div>
-                <span className="ios-cell-label">All caught up</span>
+                <span className="ios-cell-label">{'\u2728'} All caught up</span>
                 <span className="ios-cell-detail">Today's core tasks are done.</span>
               </div>
             </div>
@@ -114,7 +114,7 @@ export function HomeTab({
       {/* Next steps */}
       <div className="ios-section-group">
         <div className="ios-section-header">
-          <span>{copy.home.startHereTitle}</span>
+          <span>{'\uD83C\uDFAF'} {copy.home.startHereTitle}</span>
         </div>
         <div className="ios-card">
           {copy.home.nextSteps.map((step, i) => (
@@ -129,23 +129,23 @@ export function HomeTab({
         </div>
       </div>
 
-      {/* Crew cards */}
+      {/* Guides */}
       <div className="ios-section-group">
         <div className="ios-section-header">
-          <span>Your guides</span>
+          <span>{'\uD83D\uDC65'} Your guides</span>
         </div>
         <div className="ios-card">
           {([
-            { id: 'brushing' as const, ...crew.brushing, action: () => setTab('brushing') },
-            { id: 'track-teeth' as const, ...crew.track, action: () => { setTab('track'); setTrackSubTab('teeth'); } },
-            { id: 'track-ortho' as const, name: 'Aligner Tracker', title: 'Ortho routines', accent: 'crew-track', badge: 'AT', vibe: '', action: () => { setTab('track'); setTrackSubTab('ortho'); } },
-            { id: 'learn' as const, ...crew.learn, action: () => setTab('learn') },
+            { id: 'brushing' as const, icon: '\uD83E\uDEB9', ...crew.brushing, action: () => setTab('brushing') },
+            { id: 'track-teeth' as const, icon: '\uD83E\uDDB7', ...crew.track, action: () => { setTab('track'); setTrackSubTab('teeth'); } },
+            { id: 'track-ortho' as const, icon: '\u23F1\uFE0F', name: 'Aligner Tracker', title: 'Ortho routines', accent: 'crew-track', badge: 'AT', vibe: '', action: () => { setTab('track'); setTrackSubTab('ortho'); } },
+            { id: 'learn' as const, icon: '\uD83D\uDCA1', ...crew.learn, action: () => setTab('learn') },
           ]).map((member, i) => (
             <div key={member.id}>
               {i > 0 && <div className="ios-separator" />}
               <button className="ios-cell ios-cell-tappable" onClick={member.action}>
                 <div className="ios-cell-icon-row">
-                  <div className="ios-cell-icon">{member.badge}</div>
+                  <span className="ios-cell-emoji">{member.icon}</span>
                   <div>
                     <span className="ios-cell-label">{member.name}</span>
                     <span className="ios-cell-detail">{member.title}</span>
@@ -161,7 +161,7 @@ export function HomeTab({
       {/* Recent activity */}
       <div className="ios-section-group">
         <div className="ios-section-header">
-          <span>{copy.home.activityTitle}</span>
+          <span>{'\uD83D\uDCDD'} {copy.home.activityTitle}</span>
         </div>
         {recentActivity.length > 0 ? (
           <div className="ios-card">

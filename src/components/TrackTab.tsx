@@ -67,10 +67,10 @@ export function TrackTab({
             <div className="ios-stat-row">
               <div className="ios-stat">
                 <span className="ios-stat-value">{activeProfile.teethLost.length}</span>
-                <span className="ios-stat-label">milestones</span>
+                <span className="ios-stat-label">{'\uD83C\uDF96\uFE0F'} milestones</span>
               </div>
               <div className="ios-stat">
-                <span className="ios-stat-value">{activeProfile.teethLost.length === 0 ? '--' : 'Active'}</span>
+                <span className="ios-stat-value">{activeProfile.teethLost.length === 0 ? '--' : '\u2705'}</span>
                 <span className="ios-stat-label">status</span>
               </div>
             </div>
@@ -79,7 +79,7 @@ export function TrackTab({
           <div className="ios-card">
             <div className="smile-map">
               <div className="arch-section">
-                <span className="arch-label">Top</span>
+                <span className="arch-label">{'\u2B06\uFE0F'} Top</span>
                 <div className="teeth-arch">
                   {topTeeth.map((label) => (
                     <button
@@ -94,7 +94,7 @@ export function TrackTab({
                 </div>
               </div>
               <div className="arch-section">
-                <span className="arch-label">Bottom</span>
+                <span className="arch-label">{'\u2B07\uFE0F'} Bottom</span>
                 <div className="teeth-arch">
                   {bottomTeeth.map((label) => (
                     <button

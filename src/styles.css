@@ -410,6 +410,12 @@ button {
   font-size: 14px;
 }
 
+.ios-cell-emoji {
+  font-size: 28px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
 .ios-separator {
   height: 0.5px;
   background: var(--ios-separator);
