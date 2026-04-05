@@ -308,7 +308,7 @@ describe('useAppState', () => {
       const { result } = renderHook(() => useAppState());
       expect(result.current.secondsLeft).toBe(120);
       expect(result.current.elapsed).toBe(0);
-      expect(result.current.captainMode).toBe('ready');
+      expect(result.current.coachMode).toBe('ready');
     });
   });
 

@@ -10,8 +10,8 @@ type Props = Pick<
   | 'setTrackSubTab'
   | 'showCompletedTasks'
   | 'setShowCompletedTasks'
-  | 'captainHomeLine'
-  | 'captainMissionPills'
+  | 'homeSummary'
+  | 'homePills'
   | 'visibleTasks'
   | 'recentActivity'
   | 'jumpFromStep'
@@ -26,8 +26,8 @@ export function HomeTab({
   setTrackSubTab,
   showCompletedTasks,
   setShowCompletedTasks,
-  captainHomeLine,
-  captainMissionPills,
+  homeSummary,
+  homePills,
   visibleTasks,
   recentActivity,
   jumpFromStep,
@@ -41,14 +41,11 @@ export function HomeTab({
         <p className="ios-nav-subtitle">{activeProfile.name}</p>
       </div>
 
-      {/* Captain Brush hero card */}
+      {/* Summary card */}
       <div className="ios-hero-card">
-        <div className="ios-hero-bubble">
-          <strong>Captain Brush</strong>
-          <p>{captainHomeLine}</p>
-        </div>
+        <p className="ios-hero-summary">{homeSummary}</p>
         <div className="ios-pill-row">
-          {captainMissionPills.map((pill) => (
+          {homePills.map((pill) => (
             <span key={pill} className="ios-pill">{pill}</span>
           ))}
         </div>

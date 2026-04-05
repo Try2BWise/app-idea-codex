@@ -200,44 +200,44 @@ export function useAppState() {
     ? activeProfile.activityLog.filter((entry) => entry.kind === 'aligner' || entry.kind === 'tray-change').slice(0, 4)
     : [];
 
-  const captainMode =
+  const coachMode =
     secondsLeft === 0 ? 'victory' as const :
     isRunning ? 'active' as const :
     secondsLeft < 120 ? 'paused' as const :
     'ready' as const;
 
-  const captainHeadline =
-    captainMode === 'victory' ? 'Mission complete' :
-    captainMode === 'active' ? `Now brushing ${copy.brushing.quadrants[activeQuadrantIndex]}` :
-    captainMode === 'paused' ? 'Mission paused' :
-    'Mission ready';
+  const coachHeadline =
+    coachMode === 'victory' ? 'Mission complete' :
+    coachMode === 'active' ? `Now brushing ${copy.brushing.quadrants[activeQuadrantIndex]}` :
+    coachMode === 'paused' ? 'Paused' :
+    'Ready';
 
-  const captainSubline =
-    captainMode === 'victory'
+  const coachSubline =
+    coachMode === 'victory'
       ? copy.brushing.helperFinished
-      : captainMode === 'active'
+      : coachMode === 'active'
         ? `${copy.brushing.helperPrefix} ${copy.brushing.quadrants[activeQuadrantIndex].toLowerCase()} ${copy.brushing.helperSuffix}`
-        : captainMode === 'paused'
-          ? 'Captain Brush is holding your place. Jump back in when you are ready.'
-          : 'Captain Brush will guide one section at a time with quick, upbeat cues.';
+        : coachMode === 'paused'
+          ? 'Timer paused. Jump back in when you are ready.'
+          : 'The coach will guide one section at a time with quick cues.';
 
-  const captainStatusPills = [
+  const coachStatusPills = [
     copy.brushing.quadrants[activeQuadrantIndex],
     secondsLeft === 0 ? '100% complete' : `${Math.round(brushingProgress)}% complete`,
-    captainMode === 'active' ? 'Coach mode live' : captainMode === 'victory' ? 'Victory mode' : 'Ready for launch',
+    coachMode === 'active' ? 'Coaching' : coachMode === 'victory' ? 'Done' : 'Ready',
   ];
 
-  const captainHomeLine = activeProfile
+  const homeSummary = activeProfile
     ? (activeProfile.lastBrushedOn === today
-      ? `Captain Brush says ${activeProfile.name} is already glowing today.`
-      : `Captain Brush is ready to coach ${activeProfile.name}'s next smile mission.`)
+      ? `${activeProfile.name} already brushed today. Great job!`
+      : `Ready for ${activeProfile.name}\u2019s next brushing session.`)
     : '';
 
-  const captainMissionPills = activeProfile
+  const homePills = activeProfile
     ? [
-      activeProfile.lastBrushedOn === today ? 'Brush mission complete' : '2-minute mission ready',
-      activeProfile.type === 'teen' ? `${alignerProgress}% ortho rhythm` : `${activeProfile.teethLost.length} smile milestones`,
-      `${activeProfile.streak} day streak`,
+      activeProfile.lastBrushedOn === today ? 'Brushed today' : '2-min session ready',
+      activeProfile.type === 'teen' ? `${alignerProgress}% aligner goal` : `${activeProfile.teethLost.length} milestones`,
+      `${activeProfile.streak}-day streak`,
     ]
     : [];
 
@@ -302,10 +302,10 @@ export function useAppState() {
     encouragement,
     activeQuadrantIndex,
     brushingProgress,
-    captainMode,
-    captainHeadline,
-    captainSubline,
-    captainStatusPills,
+    coachMode,
+    coachHeadline,
+    coachSubline,
+    coachStatusPills,
 
     // Profile form state
     showProfileForm,
@@ -340,8 +340,8 @@ export function useAppState() {
     learnSections,
     recentActivity,
     orthoActivity,
-    captainHomeLine,
-    captainMissionPills,
+    homeSummary,
+    homePills,
     dailyTasks,
     visibleTasks,
 

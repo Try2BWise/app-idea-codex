@@ -66,18 +66,18 @@ export const bottomTeeth = [
 
 export const crew: Record<TabId, { name: string; title: string; vibe: string; accent: string; badge: string }> = {
   home: {
-    name: 'SmileSteps Crew',
+    name: 'SmileSteps',
     title: 'Your smile squad',
-    vibe: 'Captain Brush leads the team, Timer T-Pop keeps the beat, Marshal Floss tracks the trail, and the Paste Pals cheer every win.',
-    accent: 'crew-captain',
-    badge: 'SC',
+    vibe: 'Guided brushing, tooth tracking, aligner routines, and learning — all in one place.',
+    accent: 'crew-home',
+    badge: 'SS',
   },
   brushing: {
-    name: 'Captain Brush',
-    title: 'Hero coach',
-    vibe: 'Fast, bright, and encouraging. Great for getting a brushing mission started.',
-    accent: 'crew-captain',
-    badge: 'CB',
+    name: 'Brush Coach',
+    title: 'Guided timer',
+    vibe: 'A 2-minute guided brushing routine with quadrant coaching.',
+    accent: 'crew-brush',
+    badge: 'BC',
   },
   track: {
     name: 'Marshal Floss & Timer T-Pop',

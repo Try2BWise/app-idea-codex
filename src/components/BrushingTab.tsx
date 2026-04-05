@@ -13,10 +13,10 @@ type Props = Pick<
   | 'encouragement'
   | 'activeQuadrantIndex'
   | 'brushingProgress'
-  | 'captainMode'
-  | 'captainHeadline'
-  | 'captainSubline'
-  | 'captainStatusPills'
+  | 'coachMode'
+  | 'coachHeadline'
+  | 'coachSubline'
+  | 'coachStatusPills'
 >;
 
 export function BrushingTab({
@@ -30,10 +30,10 @@ export function BrushingTab({
   encouragement,
   activeQuadrantIndex,
   brushingProgress,
-  captainMode,
-  captainHeadline,
-  captainSubline,
-  captainStatusPills,
+  coachMode,
+  coachHeadline,
+  coachSubline,
+  coachStatusPills,
 }: Props) {
   if (!activeProfile) return null;
 
@@ -46,16 +46,14 @@ export function BrushingTab({
 
       {/* Coach status card */}
       <div className="ios-card ios-card-flush">
-        <div className={`ios-coach-card captain-${captainMode}`}>
-          <div className="ios-cell-icon ios-cell-icon-lg">{crew.brushing.badge}</div>
+        <div className={`ios-coach-card coach-${coachMode}`}>
           <div className="ios-coach-copy">
             <div className="ios-coach-headline">
-              <strong>{crew.brushing.title}</strong>
-              <span className="ios-badge">{captainHeadline}</span>
+              <span className="ios-badge">{coachHeadline}</span>
             </div>
-            <p className="ios-muted">{captainSubline}</p>
+            <p className="ios-muted">{coachSubline}</p>
             <div className="ios-pill-row">
-              {captainStatusPills.map((pill) => (
+              {coachStatusPills.map((pill) => (
                 <span key={pill} className="ios-pill ios-pill-small">{pill}</span>
               ))}
             </div>
