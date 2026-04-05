@@ -138,7 +138,7 @@ export function HomeTab({
           {([
             { id: 'brushing' as const, ...crew.brushing, action: () => setTab('brushing') },
             { id: 'track-teeth' as const, ...crew.track, action: () => { setTab('track'); setTrackSubTab('teeth'); } },
-            { id: 'track-ortho' as const, name: 'Timer T-Pop', title: 'Rhythm guide', accent: 'crew-timer', badge: 'TP', vibe: '', action: () => { setTab('track'); setTrackSubTab('ortho'); } },
+            { id: 'track-ortho' as const, name: 'Aligner Tracker', title: 'Ortho routines', accent: 'crew-track', badge: 'AT', vibe: '', action: () => { setTab('track'); setTrackSubTab('ortho'); } },
             { id: 'learn' as const, ...crew.learn, action: () => setTab('learn') },
           ]).map((member, i) => (
             <div key={member.id}>
